@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
     #region private fields
 
     private Rigidbody rb;
-
+    
     #endregion
 
     
@@ -34,21 +34,32 @@ public class Player : MonoBehaviour {
     #endregion
 
 
+    #region Properties
+
+    public float Health { get; set; }
+
+    #endregion
+
+
     #region Unity lifeCycle
 
 
     void Start()
     {
+        Health = 100f;
+        EventController.Subscribe(Consts.Events.events.hitPlayer, HitPlayer);
         rb = GetComponent<Rigidbody>();
-
     }
 
     void FixedUpdate()
     {
         PlayerControl();
+        CheckHealth();
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        { Shot(); }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Shot();
+        }
     }
 
     #endregion
@@ -77,7 +88,7 @@ public class Player : MonoBehaviour {
         float x = bulletSpawnPos.transform.position.x - transform.position.x;
         float z = bulletSpawnPos.transform.position.z - transform.position.z;
          
-        bulletFlyDirection = new Vector3(x, 0,z);
+        bulletFlyDirection = new Vector3(x, 0, z);
         GameObject go = Instantiate(bullet, bulletSpawnPos.transform.position, Quaternion.identity);
         Destroy(go, 5f);
         go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
@@ -85,6 +96,19 @@ public class Player : MonoBehaviour {
     }
 
 
+    void HitPlayer()
+    {
+        Health -= Consts.Values.damage;
+        Debug.Log("Player health now is " + Health);
+        EventController.InvokeEvent(Consts.Events.events.updateHealth);
+    }
+
+    
+    void CheckHealth()
+    {
+        //if (Health <= 0)
+        //    EventController.InvokeEvent(Consts.Events.events.lose);
+    }
 
     #endregion
 

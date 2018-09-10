@@ -8,14 +8,12 @@ public static class Consts
     {
 
         public enum events
-        {
-           
+        {          
             startGame,
             lose,
             replay,
             hitPlayer,
             updateHealth
-
         };
 
     }

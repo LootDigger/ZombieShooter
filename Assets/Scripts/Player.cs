@@ -10,10 +10,7 @@ public class Player : MonoBehaviour {
 
     #endregion
 
-
-
-
-
+    
     #region serialize Fields
 
     [SerializeField]
@@ -27,6 +24,12 @@ public class Player : MonoBehaviour {
 
     [SerializeField]
     private SimpleTouchController rightStick;
+
+    [SerializeField]
+    private GameObject bullet;
+
+    [SerializeField]
+    private GameObject bulletSpawnPos;
 
     #endregion
 
@@ -43,6 +46,9 @@ public class Player : MonoBehaviour {
     void FixedUpdate()
     {
         PlayerControl();
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        { Shot(); }
     }
 
     #endregion
@@ -65,6 +71,17 @@ public class Player : MonoBehaviour {
     }
 
 
+    void Shot()
+    {
+        Vector3 bulletFlyDirection;
+        float x = bulletSpawnPos.transform.position.x - transform.position.x;
+        float z = bulletSpawnPos.transform.position.z - transform.position.z;
+         
+        bulletFlyDirection = new Vector3(x, 0,z);
+        Instantiate(bullet,bulletSpawnPos.transform.position, Quaternion.identity).GetComponent<Rigidbody>().AddForce(bulletFlyDirection *100f,ForceMode.Force);
+
+
+    }
 
 
 

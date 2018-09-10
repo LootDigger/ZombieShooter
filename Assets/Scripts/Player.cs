@@ -78,8 +78,9 @@ public class Player : MonoBehaviour {
         float z = bulletSpawnPos.transform.position.z - transform.position.z;
          
         bulletFlyDirection = new Vector3(x, 0,z);
-        Instantiate(bullet,bulletSpawnPos.transform.position, Quaternion.identity).GetComponent<Rigidbody>().AddForce(bulletFlyDirection *100f,ForceMode.Force);
-
+        GameObject go = Instantiate(bullet, bulletSpawnPos.transform.position, Quaternion.identity);
+        Destroy(go, 5f);
+        go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
 
     }
 

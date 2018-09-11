@@ -35,8 +35,12 @@ public class ZombieWavesController : MonoBehaviour
         EventController.Subscribe(Consts.Events.events.spawnWave, SpawnWave);
         spawnCount = 4;
         SpawnWave();
+<<<<<<< HEAD
        // Debug.Log("Start");
        
+=======
+        Debug.Log("Start");
+>>>>>>> parent of 953b823... Delete Logs and remove light component from bullet
     }
 
     #endregion

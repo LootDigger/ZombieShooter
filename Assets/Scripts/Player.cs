@@ -21,10 +21,10 @@ public class Player : MonoBehaviour
     private float rotationSpeed;
 
     [SerializeField]
-    private SimpleTouchController leftStick;
+    private MobileInputController leftStick;
 
     [SerializeField]
-    private SimpleTouchController rightStick;
+    private MobileInputController rightStick;
 
     [SerializeField]
     private GameObject bullet;
@@ -69,13 +69,15 @@ public class Player : MonoBehaviour
 
     void PlayerControl()
     {
-        rb.MovePosition(transform.position + Vector3.right * speed * leftStick.GetTouchPosition.x + Vector3.forward * speed * leftStick.GetTouchPosition.y);
+        Debug.Log(leftStick.Horizontal);
+        Debug.Log(rightStick.Vertical);
+        rb.MovePosition(transform.position + Vector3.right * speed * leftStick.Horizontal + Vector3.forward * speed * leftStick.Vertical);
 
 
         Vector3 tmpAngles = transform.localEulerAngles;
-         tmpAngles.y = Vector3.Angle(new Vector3(0, 1), rightStick.GetTouchPosition);
+         tmpAngles.y = Vector3.Angle(new Vector3(0, 1), new Vector2(rightStick.Horizontal,rightStick.Vertical));
 
-        if (rightStick.GetTouchPosition.x < 0)
+       if (rightStick.Horizontal < 0)
             tmpAngles.y = 360 - tmpAngles.y;
         transform.localEulerAngles = tmpAngles;
 

@@ -4,148 +4,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-	public ActionController actionController;
-	public Transform spawnpoint;
-		// Where to respawn the player on meteorite strike
-	public float respawnTime = 4.0f;
-		// The time, in seconds, the player should lie dead on the ground before respawning
-	
-	
-	public const int kMaxCargo = 3;
-	
-	
-	private AnimationController animationController;
-	private MovementController movementController;
-	private int cargo = 0, points = 0;
-	private bool respawning = false;
-	
-	
-	public int Cargo
-	{
-		get
-		{
-			return cargo;
-		}
-	}
-	
-	
-	public int Points
-	{
-		get
-		{
-			return points;
-		}
-	}
-	
-	
-	void Reset ()
-	{
-		Setup ();
-	}
-	
-	
-	void Setup ()
-	{
-		if (actionController == null)
-		{
-			actionController = GetComponentInChildren<ActionController> ();
-		}
-	}
-	
-	
-	void Start ()
-	{
-		Setup ();
-		
-		if (spawnpoint == null)
-		{
-			Debug.LogError ("No spawnpoint set. Please correct and restart.", this);
-			enabled = false;
-			return;
-		}
-		
-		if (actionController == null)
-		{
-			Debug.LogError ("No action controller set. Please correct and restart.", this);
-			enabled = false;
-			return;
-		}
-		
-		animationController = GetComponent<AnimationController> ();
-		movementController = GetComponent<MovementController> ();
-	}
-	
-	
-	public bool AddCargo ()
-	{
-		if (cargo >= kMaxCargo)
-		{
-			return false;
-		}
-		
-		cargo++;
-		
-		return true;
-	}
-	
-	
-	public bool UnloadCargo ()
-	{
-		if (cargo <= 0)
-		{
-			return false;
-		}
-		
-		cargo--;
-		points++;
-		
-		return true;
-	}
-	
-	
-	public void OnMeteoriteStrike ()
-	{
-		StartCoroutine (Respawn ());
-	}
-	
-	
-	IEnumerator Respawn ()
-	{
-		if (respawning)
-		{
-			yield break;
-		}
-		
-		respawning = true;
-		
-		movementController.enabled = false;
-		actionController.enabled = false;
-		animationController.state = CharacterState.Dying;
-		cargo = 0;
-		
-		yield return new WaitForSeconds (respawnTime);
-		
-		transform.position = spawnpoint.position;
-		transform.rotation = spawnpoint.rotation;
-		animationController.state = CharacterState.Falling;
-		movementController.enabled = true;
-		actionController.enabled = true;
-		
-		respawning = false;
-	}
-=======
-=======
->>>>>>> parent of 7aba834... Add zombie pack
+
+    
 
     #region private fields
 
     private Rigidbody rb;
-    
+
     #endregion
 
-    
+
     #region serialize Fields
 
     [SerializeField]
@@ -160,19 +28,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     private MobileInputController rightStick;
 
-<<<<<<< HEAD
     [SerializeField]
     private GameObject bullet;
 
     [SerializeField]
     private GameObject bulletSpawnPos;
-=======
     //[SerializeField]
     //private GameObject bullet;
 
     //[SerializeField]
     //private GameObject bulletSpawnPos;
->>>>>>> parent of 7aba834... Add zombie pack
 
     #endregion
 
@@ -192,24 +57,20 @@ public class Player : MonoBehaviour
         Health = 100f;
         EventController.Subscribe(Consts.Events.events.hitPlayer, HitPlayer);
         rb = GetComponent<Rigidbody>();
-<<<<<<< HEAD
         StartCoroutine(Shooting());
-=======
       //  StartCoroutine(Shooting());
->>>>>>> parent of 7aba834... Add zombie pack
     }
 
     void FixedUpdate()
     {
         PlayerControl();
-<<<<<<< HEAD
         CheckHealth();
 
-       
-=======
-        CheckHealth();      
->>>>>>> parent of 7aba834... Add zombie pack
-        
+
+
+        CheckHealth();
+
+
     }
 
     #endregion
@@ -219,52 +80,46 @@ public class Player : MonoBehaviour
 
     void PlayerControl()
     {
-<<<<<<< HEAD
         Debug.Log(leftStick.Horizontal);
         Debug.Log(rightStick.Vertical);
-=======
 
->>>>>>> parent of 7aba834... Add zombie pack
         rb.MovePosition(transform.position + Vector3.right * speed * leftStick.Horizontal + Vector3.forward * speed * leftStick.Vertical);
 
 
         Vector3 tmpAngles = transform.localEulerAngles;
-         tmpAngles.y = Vector3.Angle(new Vector3(0, 1), new Vector2(rightStick.Horizontal,rightStick.Vertical));
+        tmpAngles.y = Vector3.Angle(new Vector3(0, 1), new Vector2(rightStick.Horizontal, rightStick.Vertical));
 
-       if (rightStick.Horizontal < 0)
+        if (rightStick.Horizontal < 0)
             tmpAngles.y = 360 - tmpAngles.y;
         transform.localEulerAngles = tmpAngles;
 
     }
 
 
-<<<<<<< HEAD
     void Shot()
     {
         Vector3 bulletFlyDirection;
         float x = bulletSpawnPos.transform.position.x - transform.position.x;
         float z = bulletSpawnPos.transform.position.z - transform.position.z;
-         
+
         bulletFlyDirection = new Vector3(x, 0, z);
         GameObject go = Instantiate(bullet, bulletSpawnPos.transform.position, Quaternion.identity);
         Destroy(go, 5f);
-       go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
+        go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
 
     }
-=======
     //void Shot()
     //{
     //    Vector3 bulletFlyDirection;
     //    float x = bulletSpawnPos.transform.position.x - transform.position.x;
     //    float z = bulletSpawnPos.transform.position.z - transform.position.z;
-         
+
     //    bulletFlyDirection = new Vector3(x, 0, z);
     //    GameObject go = Instantiate(bullet, bulletSpawnPos.transform.position, Quaternion.identity);
     //    Destroy(go, 5f);
     //   go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
 
     //}
->>>>>>> parent of 7aba834... Add zombie pack
 
 
     void HitPlayer()
@@ -274,7 +129,6 @@ public class Player : MonoBehaviour
         EventController.InvokeEvent(Consts.Events.events.updateHealth);
     }
 
-<<<<<<< HEAD
     IEnumerator Shooting()
     {
         yield return new WaitForSeconds(0.2f);
@@ -282,7 +136,6 @@ public class Player : MonoBehaviour
         StartCoroutine(Shooting());
 
     }
-=======
     //IEnumerator Shooting()
     //{
     //    yield return new WaitForSeconds(0.2f);
@@ -290,8 +143,7 @@ public class Player : MonoBehaviour
     //    StartCoroutine(Shooting());
 
     //}
->>>>>>> parent of 7aba834... Add zombie pack
-    
+
     void CheckHealth()
     {
         //if (Health <= 0)
@@ -300,9 +152,5 @@ public class Player : MonoBehaviour
 
     #endregion
 
-<<<<<<< HEAD
->>>>>>> parent of 953b823... Delete Logs and remove light component from bullet
-=======
->>>>>>> parent of 7aba834... Add zombie pack
 }
 

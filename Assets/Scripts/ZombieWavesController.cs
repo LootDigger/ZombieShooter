@@ -35,7 +35,7 @@ public class ZombieWavesController : MonoBehaviour
         EventController.Subscribe(Consts.Events.events.spawnWave, SpawnWave);
         spawnCount = 4;
         SpawnWave();
-        Debug.Log("Start");
+       // Debug.Log("Start");
     }
 
     #endregion

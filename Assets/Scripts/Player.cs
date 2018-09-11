@@ -67,8 +67,7 @@ public class Player : MonoBehaviour
 
     void PlayerControl()
     {
-        Debug.Log(leftStick.Horizontal);
-        Debug.Log(rightStick.Vertical);
+
         rb.MovePosition(transform.position + Vector3.right * speed * leftStick.Horizontal + Vector3.forward * speed * leftStick.Vertical);
 
 

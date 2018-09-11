@@ -70,7 +70,6 @@ public class DoublePistol : MonoBehaviour {
     {
         if (isNeedToShoot)
         {
-            Debug.Log("Shot");
             int i;
             if (isRightPistolShooting)
                 i = 1;

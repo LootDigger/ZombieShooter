@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
     #region private fields
 
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour {
         Health = 100f;
         EventController.Subscribe(Consts.Events.events.hitPlayer, HitPlayer);
         rb = GetComponent<Rigidbody>();
+        StartCoroutine(Shooting());
     }
 
     void FixedUpdate()
@@ -56,10 +58,8 @@ public class Player : MonoBehaviour {
         PlayerControl();
         CheckHealth();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Shot();
-        }
+       
+        
     }
 
     #endregion
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour {
         bulletFlyDirection = new Vector3(x, 0, z);
         GameObject go = Instantiate(bullet, bulletSpawnPos.transform.position, Quaternion.identity);
         Destroy(go, 5f);
-        go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
+       go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
 
     }
 
@@ -103,6 +103,13 @@ public class Player : MonoBehaviour {
         EventController.InvokeEvent(Consts.Events.events.updateHealth);
     }
 
+    IEnumerator Shooting()
+    {
+        yield return new WaitForSeconds(0.2f);
+        Shot();
+        StartCoroutine(Shooting());
+
+    }
     
     void CheckHealth()
     {

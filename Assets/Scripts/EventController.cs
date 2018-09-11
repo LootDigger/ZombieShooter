@@ -10,9 +10,8 @@ public class EventController
     static event Action hitPlayer;
     static event Action startGame;
     static event Action updateHealthBar;
-    static event Action startRightStick;
+    static event Action spawnWave;
     static event Action lose;
-    static event Action letDown;
     static event Action replay;
 
 
@@ -23,6 +22,13 @@ public class EventController
         {
             hitPlayer += method;
         }
+
+
+        if (gameEvent == Consts.Events.events.spawnWave)
+        {
+            spawnWave += method;
+        }
+
 
 
         if (gameEvent == Consts.Events.events.updateHealth)
@@ -58,6 +64,12 @@ public class EventController
         {
             updateHealthBar -= method;
         }
+
+        if (gameEvent == Consts.Events.events.spawnWave)
+        {
+            spawnWave -= method;
+        }
+
 
 
         if (gameEvent == Consts.Events.events.hitPlayer)
@@ -97,6 +109,11 @@ public class EventController
             hitPlayer();
         }
 
+
+        if (eventParametr == Consts.Events.events.spawnWave)
+        {
+            spawnWave();
+        }
 
         if (eventParametr == Consts.Events.events.updateHealth)
         {

@@ -13,7 +13,8 @@ public static class Consts
             lose,
             replay,
             hitPlayer,
-            updateHealth
+            updateHealth,
+            spawnWave
         };
 
     }
@@ -25,6 +26,7 @@ public static class Consts
         public static float zombieAttackCooldown = 2f;
         public static float fastZombieSpeed = 3.5f;
         public static float slowZombieSpeed = 1f;
+        public static float zombieSpawnDistance = 35f;
 
     }
 

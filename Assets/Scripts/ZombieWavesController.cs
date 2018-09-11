@@ -37,7 +37,10 @@ public class ZombieWavesController : MonoBehaviour
         SpawnWave();
        // Debug.Log("Start");
        
+<<<<<<< HEAD
       
+=======
+>>>>>>> parent of 7412d52... Revert "Delete Logs and remove light component from bullet"
     }
 
     #endregion

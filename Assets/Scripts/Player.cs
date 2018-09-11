@@ -26,11 +26,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private MobileInputController rightStick;
 
-    [SerializeField]
-    private GameObject bullet;
+    //[SerializeField]
+    //private GameObject bullet;
 
-    [SerializeField]
-    private GameObject bulletSpawnPos;
+    //[SerializeField]
+    //private GameObject bulletSpawnPos;
 
     #endregion
 
@@ -50,15 +50,13 @@ public class Player : MonoBehaviour
         Health = 100f;
         EventController.Subscribe(Consts.Events.events.hitPlayer, HitPlayer);
         rb = GetComponent<Rigidbody>();
-        StartCoroutine(Shooting());
+      //  StartCoroutine(Shooting());
     }
 
     void FixedUpdate()
     {
         PlayerControl();
-        CheckHealth();
-
-       
+        CheckHealth();      
         
     }
 
@@ -84,18 +82,18 @@ public class Player : MonoBehaviour
     }
 
 
-    void Shot()
-    {
-        Vector3 bulletFlyDirection;
-        float x = bulletSpawnPos.transform.position.x - transform.position.x;
-        float z = bulletSpawnPos.transform.position.z - transform.position.z;
+    //void Shot()
+    //{
+    //    Vector3 bulletFlyDirection;
+    //    float x = bulletSpawnPos.transform.position.x - transform.position.x;
+    //    float z = bulletSpawnPos.transform.position.z - transform.position.z;
          
-        bulletFlyDirection = new Vector3(x, 0, z);
-        GameObject go = Instantiate(bullet, bulletSpawnPos.transform.position, Quaternion.identity);
-        Destroy(go, 5f);
-       go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
+    //    bulletFlyDirection = new Vector3(x, 0, z);
+    //    GameObject go = Instantiate(bullet, bulletSpawnPos.transform.position, Quaternion.identity);
+    //    Destroy(go, 5f);
+    //   go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
 
-    }
+    //}
 
 
     void HitPlayer()
@@ -105,13 +103,13 @@ public class Player : MonoBehaviour
         EventController.InvokeEvent(Consts.Events.events.updateHealth);
     }
 
-    IEnumerator Shooting()
-    {
-        yield return new WaitForSeconds(0.2f);
-        Shot();
-        StartCoroutine(Shooting());
+    //IEnumerator Shooting()
+    //{
+    //    yield return new WaitForSeconds(0.2f);
+    //    Shot();
+    //    StartCoroutine(Shooting());
 
-    }
+    //}
     
     void CheckHealth()
     {

@@ -38,6 +38,7 @@ public class ZombieWavesController : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
        // Debug.Log("Start");
+<<<<<<< HEAD
        
 =======
         Debug.Log("Start");
@@ -45,6 +46,8 @@ public class ZombieWavesController : MonoBehaviour
 =======
         Debug.Log("Start");
 >>>>>>> parent of 953b823... Delete Logs and remove light component from bullet
+=======
+>>>>>>> parent of 7aba834... Add zombie pack
     }
 
     #endregion

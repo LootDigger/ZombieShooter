@@ -1,10 +1,10 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
-[RequireComponent (typeof (AnimationController))]
-[RequireComponent (typeof (MovementController))]
 public class Player : MonoBehaviour
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public ActionController actionController;
 	public Transform spawnpoint;
@@ -136,6 +136,8 @@ public class Player : MonoBehaviour
 		respawning = false;
 	}
 =======
+=======
+>>>>>>> parent of 7aba834... Add zombie pack
 
     #region private fields
 
@@ -158,11 +160,19 @@ public class Player : MonoBehaviour
     [SerializeField]
     private MobileInputController rightStick;
 
+<<<<<<< HEAD
     [SerializeField]
     private GameObject bullet;
 
     [SerializeField]
     private GameObject bulletSpawnPos;
+=======
+    //[SerializeField]
+    //private GameObject bullet;
+
+    //[SerializeField]
+    //private GameObject bulletSpawnPos;
+>>>>>>> parent of 7aba834... Add zombie pack
 
     #endregion
 
@@ -182,15 +192,23 @@ public class Player : MonoBehaviour
         Health = 100f;
         EventController.Subscribe(Consts.Events.events.hitPlayer, HitPlayer);
         rb = GetComponent<Rigidbody>();
+<<<<<<< HEAD
         StartCoroutine(Shooting());
+=======
+      //  StartCoroutine(Shooting());
+>>>>>>> parent of 7aba834... Add zombie pack
     }
 
     void FixedUpdate()
     {
         PlayerControl();
+<<<<<<< HEAD
         CheckHealth();
 
        
+=======
+        CheckHealth();      
+>>>>>>> parent of 7aba834... Add zombie pack
         
     }
 
@@ -201,8 +219,12 @@ public class Player : MonoBehaviour
 
     void PlayerControl()
     {
+<<<<<<< HEAD
         Debug.Log(leftStick.Horizontal);
         Debug.Log(rightStick.Vertical);
+=======
+
+>>>>>>> parent of 7aba834... Add zombie pack
         rb.MovePosition(transform.position + Vector3.right * speed * leftStick.Horizontal + Vector3.forward * speed * leftStick.Vertical);
 
 
@@ -216,6 +238,7 @@ public class Player : MonoBehaviour
     }
 
 
+<<<<<<< HEAD
     void Shot()
     {
         Vector3 bulletFlyDirection;
@@ -228,6 +251,20 @@ public class Player : MonoBehaviour
        go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
 
     }
+=======
+    //void Shot()
+    //{
+    //    Vector3 bulletFlyDirection;
+    //    float x = bulletSpawnPos.transform.position.x - transform.position.x;
+    //    float z = bulletSpawnPos.transform.position.z - transform.position.z;
+         
+    //    bulletFlyDirection = new Vector3(x, 0, z);
+    //    GameObject go = Instantiate(bullet, bulletSpawnPos.transform.position, Quaternion.identity);
+    //    Destroy(go, 5f);
+    //   go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
+
+    //}
+>>>>>>> parent of 7aba834... Add zombie pack
 
 
     void HitPlayer()
@@ -237,6 +274,7 @@ public class Player : MonoBehaviour
         EventController.InvokeEvent(Consts.Events.events.updateHealth);
     }
 
+<<<<<<< HEAD
     IEnumerator Shooting()
     {
         yield return new WaitForSeconds(0.2f);
@@ -244,6 +282,15 @@ public class Player : MonoBehaviour
         StartCoroutine(Shooting());
 
     }
+=======
+    //IEnumerator Shooting()
+    //{
+    //    yield return new WaitForSeconds(0.2f);
+    //    Shot();
+    //    StartCoroutine(Shooting());
+
+    //}
+>>>>>>> parent of 7aba834... Add zombie pack
     
     void CheckHealth()
     {
@@ -253,5 +300,9 @@ public class Player : MonoBehaviour
 
     #endregion
 
+<<<<<<< HEAD
 >>>>>>> parent of 953b823... Delete Logs and remove light component from bullet
+=======
+>>>>>>> parent of 7aba834... Add zombie pack
 }
+

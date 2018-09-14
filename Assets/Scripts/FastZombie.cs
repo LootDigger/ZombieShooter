@@ -11,6 +11,13 @@ public class FastZombie : Zombie {
 
     #endregion
 
+    #region SerializableFields
+
+    [SerializeField]
+    private GameObject medKit;
+
+    #endregion
+
 
     #region Unity lifecycle
 
@@ -41,9 +48,16 @@ public class FastZombie : Zombie {
     {
         if (HP <= 0)
         {
-           this.isAlive = false;
+            this.isAlive = false;
             Destroy(this.gameObject);
-          
+            EventController.InvokeEvent(Consts.Events.events.reduceZombie);
+            EventController.InvokeEvent(Consts.Events.events.addScoreForTheFZ);
+
+            if (Random.Range(1, Consts.Values.medKitDropChance + 1) == 1)
+            {
+                Instantiate(medKit, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+            }
+
         }
     }
 
@@ -69,7 +83,7 @@ public class FastZombie : Zombie {
     {
         if(Vector3.Distance(transform.position, this.Player.transform.position) <= Consts.Values.attackDistance)
         {
-            EventController.InvokeEvent(Consts.Events.events.hitPlayer);
+            EventController.InvokeEvent(Consts.Events.events.fZhitPlayer);
         }
         
     }
@@ -77,7 +91,7 @@ public class FastZombie : Zombie {
 
     IEnumerator CoolDown()
     {
-        yield return new WaitForSeconds(Consts.Values.zombieAttackCooldown);
+        yield return new WaitForSeconds(Consts.Values.fastZombieAttackCooldown);
         TryToAttack();
         isReadyToAttack = true;
     }

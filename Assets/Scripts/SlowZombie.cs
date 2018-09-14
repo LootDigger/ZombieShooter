@@ -11,6 +11,8 @@ public class SlowZombie : Zombie
 
     #endregion
 
+    [SerializeField]
+    private GameObject medKit;
 
     #region Unity lifecycle
 
@@ -44,6 +46,14 @@ public class SlowZombie : Zombie
         {
             this.isAlive = false;
             Destroy(this.gameObject);
+
+            if(Random.Range(1f,Consts.Values.medKitDropChance)==1f)
+            {
+                Instantiate(medKit, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+            }
+
+            EventController.InvokeEvent(Consts.Events.events.reduceZombie);
+            EventController.InvokeEvent(Consts.Events.events.addScoreForTheSZ);
         }
     }
 
@@ -71,7 +81,7 @@ public class SlowZombie : Zombie
     {
         if (Vector3.Distance(transform.position, this.Player.transform.position) <= Consts.Values.attackDistance)
         {
-            EventController.InvokeEvent(Consts.Events.events.hitPlayer);
+            EventController.InvokeEvent(Consts.Events.events.sZhitPlayer);
         }
 
     }
@@ -79,7 +89,7 @@ public class SlowZombie : Zombie
 
     IEnumerator CoolDown()
     {
-        yield return new WaitForSeconds(Consts.Values.zombieAttackCooldown);
+        yield return new WaitForSeconds(Consts.Values.slowZombieAttackCooldown);
         TryToAttack();
         isReadyToAttack = true;
     }

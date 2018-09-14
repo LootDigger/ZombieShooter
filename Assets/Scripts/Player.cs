@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     #region private fields
 
     private Rigidbody rb;
+    private bool isAlive;
 
     #endregion
 
@@ -32,6 +33,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject bullet;
 
+    [SerializeField]
+    private GameObject blood;
+
    #endregion
 
 
@@ -45,23 +49,56 @@ public class Player : MonoBehaviour
     #region Unity lifeCycle
 
 
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "MedKit")
+        {
+            if (Health == 100f)
+                return;
+            else
+                Destroy(other.gameObject);
+
+
+           
+
+            if ((Health + Consts.Values.medKitCureEffect) >= 100)
+            {
+                
+                Health = 100f;
+            }
+            else
+                Health += Consts.Values.medKitCureEffect;
+
+            EventController.InvokeEvent(Consts.Events.events.updateHealth);
+        }
+
+    }
+
     void Start()
     {
+        isAlive = false;
         Health = 100f;
-        EventController.Subscribe(Consts.Events.events.hitPlayer, HitPlayer);
+        EventController.Subscribe(Consts.Events.events.lose, Lose);
+        EventController.Subscribe(Consts.Events.events.fZhitPlayer, fZHitPlayer);
+        EventController.Subscribe(Consts.Events.events.sZhitPlayer, sZHitPlayer);
+        EventController.Subscribe(Consts.Events.events.startGame, StartGame);
+
         rb = GetComponent<Rigidbody>();
         StartCoroutine(Shooting());
-      //  StartCoroutine(Shooting());
     }
 
     void FixedUpdate()
     {
-        PlayerControl();
+        if (isAlive)
+        {
+            PlayerControl();
+        }
+
         CheckHealth();
 
 
 
-        CheckHealth();
+      
 
 
     }
@@ -71,10 +108,19 @@ public class Player : MonoBehaviour
 
     #region private methods
 
+
+    void StartGame()
+    {
+        isAlive = true;
+    }
+
+    void Lose()
+    {
+        isAlive = false;
+    }
+
     void PlayerControl()
     {
-        Debug.Log(leftStick.Horizontal);
-        Debug.Log(rightStick.Vertical);
 
         rb.MovePosition(transform.position + Vector3.right * speed * leftStick.Horizontal + Vector3.forward * speed * leftStick.Vertical);
 
@@ -90,12 +136,23 @@ public class Player : MonoBehaviour
 
     
 
-    void HitPlayer()
+    void fZHitPlayer()
     {
-        Health -= Consts.Values.damage;
-        Debug.Log("Player health now is " + Health);
+        Health -= Consts.Values.fZDamage;
         EventController.InvokeEvent(Consts.Events.events.updateHealth);
+        Instantiate(blood, transform.position, Quaternion.identity);
     }
+
+
+    void sZHitPlayer()
+    {
+        Health -= Consts.Values.sZDamage;
+        EventController.InvokeEvent(Consts.Events.events.updateHealth);
+        Instantiate(blood, transform.position, Quaternion.identity);
+
+    }
+
+
 
     IEnumerator Shooting()
     {
@@ -108,8 +165,11 @@ public class Player : MonoBehaviour
 
     void CheckHealth()
     {
-        //if (Health <= 0)
-        //    EventController.InvokeEvent(Consts.Events.events.lose);
+        if (Health <= 0)
+        {
+            EventController.InvokeEvent(Consts.Events.events.lose);
+            isAlive = false;
+        }
     }
 
     #endregion

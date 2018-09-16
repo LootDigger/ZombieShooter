@@ -25,6 +25,9 @@ public abstract class Zombie : MonoBehaviour {
     [SerializeField]
     protected float damagePerHit;
 
+ 
+    
+
     #endregion
 
 
@@ -36,15 +39,7 @@ public abstract class Zombie : MonoBehaviour {
              
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "bullet")
-        {
-            HP -= 10f;
-            Destroy(other.gameObject);
-        }
-
-    }
+   
 
     #endregion
 

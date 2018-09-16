@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
+using UnityEngine.UI;
 [RequireComponent(typeof(UnityEngine.UI.AspectRatioFitter))]
 public class MobileInputController : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler,IPointerDownHandler,IPointerUpHandler {
 
     public RectTransform Background;
     public RectTransform Knob;
+    public Image stic;
     [Header("Input Values")]
     public float Horizontal = 0;
     public float Vertical = 0;
@@ -38,16 +41,20 @@ public class MobileInputController : MonoBehaviour,IBeginDragHandler,IDragHandle
     public void OnPointerDown(PointerEventData eventData)
     {
         OnDrag(eventData);
-       
+        stic.DOFade(0.5f, 0f);
+
+
     }
 
     public void OnPointerUp(PointerEventData eventData) {
         OnEndDrag(eventData);
+        stic.DOFade(1f, 0f);
+
     }
-   
-	
-	// Update is called once per frame
-	void Update () {
+
+
+    // Update is called once per frame
+    void Update () {
         Horizontal = PointPosition.x;
         Vertical = PointPosition.y;
     }

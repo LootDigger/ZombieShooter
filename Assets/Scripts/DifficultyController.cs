@@ -4,12 +4,15 @@ using UnityEngine;
 
 public static class DifficultyController
 {
-    public static bool isCurrentLevelHavePickDifficulty;
+    public static bool isMaxim;
 
-    public static double CalculateDifficulty(int currentWave)
+    public static bool isMinim;
+
+
+    public static int CalculateDifficulty(int currentWave)
     {
 
-        double tmpCurrentWaveDef = currentWave;
+        int tmpCurrentWaveDef = currentWave;
         int counter = 0;
 
         if (tmpCurrentWaveDef % 3 != 0)
@@ -27,22 +30,22 @@ public static class DifficultyController
 
             if (counter == 2)
             {
-                double diff = tmpCurrentWaveDef / 3;
-                isCurrentLevelHavePickDifficulty = false;
+                int diff = tmpCurrentWaveDef / 3;
+                isMaxim = false;
                 return diff;
             }
             else if (counter == 1)
             {
-                isCurrentLevelHavePickDifficulty = true;
-                double diff = tmpCurrentWaveDef / 3;
-                diff += 0.5;
+                isMaxim = true;
+                int diff = tmpCurrentWaveDef / 3;
+                diff += 1;
                 return diff;
             }
         }
         else
         {
-            isCurrentLevelHavePickDifficulty = false;
-            double diff = tmpCurrentWaveDef / 3;
+            isMaxim = false;
+            int diff = tmpCurrentWaveDef / 3;
             return diff;
         }
 

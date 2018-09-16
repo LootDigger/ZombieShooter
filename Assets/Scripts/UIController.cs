@@ -7,14 +7,14 @@ using TMPro;
 public class UIController : MonoBehaviour {
 
     #region Private fields
-
-    private int mainScore;
-    private int waveCounter;
-
+    
     #endregion
 
 
     #region Serializable fields
+
+    [SerializeField]
+    LeaderBoard localBoard;
 
     [SerializeField]
     Slider healthBarSlider;
@@ -47,7 +47,13 @@ public class UIController : MonoBehaviour {
     TextMeshProUGUI scoreResult;
 
     [SerializeField]
-    TextMeshProUGUI currentWave;
+    TextMeshProUGUI BestWavedSurvivedResult;
+
+    [SerializeField]
+    TextMeshProUGUI BestScoreResult;
+
+    [SerializeField]
+    TextMeshProUGUI currentWaveUI;
 
     [SerializeField]
     GameObject countWaveUI;
@@ -60,15 +66,14 @@ public class UIController : MonoBehaviour {
 
     void Start()
     {
-        mainScore = 0;
-        waveCounter = 1;
-        EventController.Subscribe(Consts.Events.events.startGame, StartGame);
-        EventController.Subscribe(Consts.Events.events.spawnWave, UpdateWaveCounter);
 
+        GameConditionsManager.mainScore = 0;
+        EventController.Subscribe(Consts.Events.events.startGame, StartGame);
         EventController.Subscribe(Consts.Events.events.updateHealth, UpdateHealthBar);
         EventController.Subscribe(Consts.Events.events.addScoreForTheFZ, AddScoreFastZombie);
         EventController.Subscribe(Consts.Events.events.addScoreForTheSZ, AddScoreSlowZombie);
         EventController.Subscribe(Consts.Events.events.lose, ShowDeathScreen);
+        EventController.Subscribe(Consts.Events.events.spawnWave, UpdateWaveCounter);
 
     }
 
@@ -79,8 +84,13 @@ public class UIController : MonoBehaviour {
 
     void UpdateWaveCounter()
     {
-        waveCounter++;
-        currentWave.text = waveCounter.ToString();
+        GameConditionsManager.currentWave++;       
+        currentWaveUI.text = GameConditionsManager.currentWave.ToString();
+
+        if (GameConditionsManager.currentWave >= localBoard.WavesBestResult)
+        {
+            localBoard.WavesBestResult = GameConditionsManager.currentWave;
+        }
     }
 
     void UpdateHealthBar()
@@ -113,23 +123,39 @@ public class UIController : MonoBehaviour {
 
     void AddScoreSlowZombie()
     {
-        mainScore += Consts.Values.scoreCountForSlowZombieKill;
-        score.text = mainScore.ToString();
+        GameConditionsManager.mainScore += Consts.Values.Zombie.scoreCountForSlowZombieKill;
+        score.text = GameConditionsManager.mainScore.ToString();
+    
+        if(GameConditionsManager.mainScore >=localBoard.ScoreBestResult)
+        {
+            localBoard.ScoreBestResult = GameConditionsManager.mainScore;
+        }
+
+
     }
 
 
     void AddScoreFastZombie()
     {
 
-        mainScore += Consts.Values.scoreCountForFastZombieKill;
-        score.text = mainScore.ToString();
+        GameConditionsManager.mainScore += Consts.Values.Zombie.scoreCountForFastZombieKill;
+        score.text = GameConditionsManager.mainScore.ToString();
+
+        if (GameConditionsManager.mainScore >= localBoard.ScoreBestResult)
+        {
+            localBoard.ScoreBestResult = GameConditionsManager.mainScore;
+        }
     }
 
     void ShowDeathScreen()
     {
-        wavedSurvivedResult.text = waveCounter.ToString();
-        scoreResult.text = mainScore.ToString();
+        wavedSurvivedResult.text = GameConditionsManager.currentWave.ToString();
+        scoreResult.text = GameConditionsManager.mainScore.ToString();
         DeadScreen.SetActive(true);
+
+        BestScoreResult.text = localBoard.ScoreBestResult.ToString();
+        BestWavedSurvivedResult.text = localBoard.WavesBestResult.ToString();
+
 
     }
 

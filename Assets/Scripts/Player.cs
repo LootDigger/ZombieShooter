@@ -53,23 +53,26 @@ public class Player : MonoBehaviour
     {
         if(other.tag == "MedKit")
         {
-            if (Health == 100f)
+            if (Health >= 100f)
                 return;
             else
-                Destroy(other.gameObject);
+                Destroy(other.gameObject);           
 
-
-           
-
-            if ((Health + Consts.Values.medKitCureEffect) >= 100)
-            {
+            //if ((Health + Consts.Values.Meds.medKitCureEffect) >= 100)
+            //{
                 
-                Health = 100f;
-            }
-            else
-                Health += Consts.Values.medKitCureEffect;
+            //    Health = 100f;
+            //}
+            //else
+            //    Health += Consts.Values.Meds.medKitCureEffect;
 
             EventController.InvokeEvent(Consts.Events.events.updateHealth);
+        }
+        else
+            if(other.tag == "Booster")
+        {
+            EventController.InvokeEvent(Consts.Events.events.upgradeWeapon);
+            Destroy(other.gameObject);
         }
 
     }
@@ -77,7 +80,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         isAlive = false;
-        Health = 100f;
+        Health = 10000000f;
         EventController.Subscribe(Consts.Events.events.lose, Lose);
         EventController.Subscribe(Consts.Events.events.fZhitPlayer, fZHitPlayer);
         EventController.Subscribe(Consts.Events.events.sZhitPlayer, sZHitPlayer);
@@ -138,17 +141,17 @@ public class Player : MonoBehaviour
 
     void fZHitPlayer()
     {
-        Health -= Consts.Values.fZDamage;
+        Health -= Consts.Values.Zombie.fZDamage;
         EventController.InvokeEvent(Consts.Events.events.updateHealth);
-        Instantiate(blood, transform.position, Quaternion.identity);
+       Destroy(Instantiate(blood, transform.position, Quaternion.identity),1f);
     }
 
 
     void sZHitPlayer()
     {
-        Health -= Consts.Values.sZDamage;
+        Health -= Consts.Values.Zombie.sZDamage;
         EventController.InvokeEvent(Consts.Events.events.updateHealth);
-        Instantiate(blood, transform.position, Quaternion.identity);
+        Destroy(Instantiate(blood, transform.position, Quaternion.identity), 1f);
 
     }
 

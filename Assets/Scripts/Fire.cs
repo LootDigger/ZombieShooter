@@ -8,6 +8,8 @@ public class Fire : MonoBehaviour {
     #region Private fields
 
     Light light;
+    private float counter;
+    private float fireDarknessDelay;
 
     #endregion
 
@@ -16,28 +18,46 @@ public class Fire : MonoBehaviour {
 
     void Start()
     {
+        EventController.Subscribe(Consts.Events.events.spawnWave, DecreaseRange);
+        fireDarknessDelay = 1.5f;
         light = GetComponent<Light>();
         RecursionLight();
+        counter = 0;
     }
 
 
 
     void RecursionLight()
     {
-        float def = Random.Range(Consts.Values.minLightIntensivity, Consts.Values.maxLightIntensivity);
-        light.DOIntensity(def, 1.5f).OnComplete(RecursionLight);  
+        float def = Random.Range(Consts.Values.Lightning.minLightIntensivity, Consts.Values.Lightning.maxLightIntensivity);
+        light.DOIntensity(def, fireDarknessDelay).OnComplete(RecursionLight);  
             
-        if(DifficultyController.isCurrentLevelHavePickDifficulty)
+        if(DifficultyController.isMaxim)
         {
-            Consts.Values.minLightIntensivity = 0f;
+            counter++;
+            fireDarknessDelay = counter;
+            Consts.Values.Lightning.minLightIntensivity = 0;
+            Consts.Values.Lightning.maxLightIntensivity = 2f;
+
         }
         else
         {
-            Consts.Values.minLightIntensivity = 2f;
+            fireDarknessDelay = 1.5f;
+
+            Consts.Values.Lightning.minLightIntensivity = 2f;
+            Consts.Values.Lightning.maxLightIntensivity = 4f;
+
         }
+
+
 
     }
 
+
+    void DecreaseRange()
+    {
+        light.range -= 5f;
+    }
 
    
 

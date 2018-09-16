@@ -7,7 +7,7 @@ public class ZombieWavesController : MonoBehaviour
 
     #region Private fields
 
-    private int spawnCount;
+    private double spawnCount;
     private int zombiesAliveCount;
     private int currentWaveNumber;
     private double difficulty;
@@ -39,8 +39,8 @@ public class ZombieWavesController : MonoBehaviour
         isGameStarted = false;
         difficulty = 0;
         currentWaveNumber = 0;
-        EventController.Subscribe(Consts.Events.events.pause, PauseGame);
         EventController.Subscribe(Consts.Events.events.spawnWave, SpawnWave);
+        EventController.Subscribe(Consts.Events.events.pause, PauseGame);
         EventController.Subscribe(Consts.Events.events.reduceZombie, ReduceCount);
     }
 
@@ -66,43 +66,61 @@ public class ZombieWavesController : MonoBehaviour
 
     public void SpawnWave()
     {
+        //GameConditionsManager.currentWave ++;
         if (!isGameStarted)
         {
             EventController.InvokeEvent(Consts.Events.events.startGame);
             isGameStarted = true;
         }
 
-        currentWaveNumber += 1;
-        difficulty = DifficultyController.CalculateDifficulty(currentWaveNumber);
-        spawnCount = (int)(difficulty * currentWaveNumber * 2);
-        zombiesAliveCount = spawnCount;
-        int tmpCount = spawnCount;
+        
+
+        difficulty = DifficultyController.CalculateDifficulty(GameConditionsManager.currentWave);
+
+
+
+        if (DifficultyController.isMaxim)
+        {
+            spawnCount = GameConditionsManager.currentWave * difficulty * Consts.Values.Balance.RisingCoef;
+        }
+
+        else if (DifficultyController.isMinim)
+        {
+            spawnCount = GameConditionsManager.currentWave * difficulty;
+            spawnCount /= Consts.Values.Balance.loweringCoef;
+        }
+        else
+        {
+            spawnCount = GameConditionsManager.currentWave * difficulty;           
+        }
+
+       
+
+        int tmpCount = (int)(spawnCount / 4);
+
         if (tmpCount < 1)
         {
             tmpCount = 1;
         }
+
         zombiesAliveCount = tmpCount * 4;
 
-        Debug.ClearDeveloperConsole();
-        Debug.Log("текущая волна = " + currentWaveNumber);
-        Debug.Log("Сложность = " + difficulty);
-        Debug.Log("количество заспавненых зомби = " + zombiesAliveCount);
-        Debug.Log("spawnCount = " + spawnCount);
-        Debug.Log("tmpCount = " + tmpCount);
+        
 
+      
 
 
         for (int i = 0; i < tmpCount; i++)
         {
-            Vector3 spawnPos = new Vector3(-tmpCount + i * 2, 1f, Player.transform.position.z + Consts.Values.zombieSpawnDistance);
+            Vector3 spawnPos = new Vector3(-tmpCount + i * 2, 1f, Player.transform.position.z + Consts.Values.Zombie.zombieSpawnDistance);
             if (i % 2 == 0)
             {
                 spawnPos.z *= 2f;
             }
-            int tmp = Random.Range(1, Consts.Values.slowZombieSpawnRate + 1);
+            int tmp = Random.Range(1, Consts.Values.Zombie.slowZombieSpawnRate + 1);
 
 
-            if (tmp == Consts.Values.slowZombieSpawnRate)
+            if (tmp == Consts.Values.Zombie.slowZombieSpawnRate)
             {
                 Instantiate(slowZombie, spawnPos, Quaternion.identity);
             }
@@ -116,16 +134,16 @@ public class ZombieWavesController : MonoBehaviour
 
         for (int i = 0; i < tmpCount; i++)
         {
-            Vector3 spawnPos = new Vector3(-tmpCount + i * 2, 1f, Player.transform.position.z - Consts.Values.zombieSpawnDistance);
+            Vector3 spawnPos = new Vector3(-tmpCount + i * 2, 1f, Player.transform.position.z - Consts.Values.Zombie.zombieSpawnDistance);
             if (i % 2 == 0)
             {
                 spawnPos.z *= 2f;
             }
 
-            int tmp = Random.Range(1, Consts.Values.slowZombieSpawnRate + 1);
+            int tmp = Random.Range(1, Consts.Values.Zombie.slowZombieSpawnRate + 1);
 
 
-            if (tmp == Consts.Values.slowZombieSpawnRate)
+            if (tmp == Consts.Values.Zombie.slowZombieSpawnRate)
             {
                 Instantiate(slowZombie, spawnPos, Quaternion.identity);
             }
@@ -139,14 +157,14 @@ public class ZombieWavesController : MonoBehaviour
 
         for (int i = 0; i < tmpCount; i++)
         {
-            Vector3 spawnPos = new Vector3(Player.transform.position.x - Consts.Values.zombieSpawnDistance, 1f, Player.transform.position.z - tmpCount + i * 2);
+            Vector3 spawnPos = new Vector3(Player.transform.position.x - Consts.Values.Zombie.zombieSpawnDistance, 1f, Player.transform.position.z - tmpCount + i * 2);
             if (i % 2 == 0)
             {
                 spawnPos.x *= 2f;
             }
 
-            int tmp = Random.Range(1, Consts.Values.slowZombieSpawnRate + 1);
-            if (tmp == Consts.Values.slowZombieSpawnRate)
+            int tmp = Random.Range(1, Consts.Values.Zombie.slowZombieSpawnRate + 1);
+            if (tmp == Consts.Values.Zombie.slowZombieSpawnRate)
             {
                 Instantiate(slowZombie, spawnPos, Quaternion.identity);
             }
@@ -159,15 +177,15 @@ public class ZombieWavesController : MonoBehaviour
 
         for (int i = 0; i < tmpCount; i++)
         {
-            Vector3 spawnPos = new Vector3(Player.transform.position.x + Consts.Values.zombieSpawnDistance, 1f, Player.transform.position.z - tmpCount + i * 2);
+            Vector3 spawnPos = new Vector3(Player.transform.position.x + Consts.Values.Zombie.zombieSpawnDistance, 1f, Player.transform.position.z - tmpCount + i * 2);
             if (i % 2 == 0)
             {
                 spawnPos.x *= 2f;
             }
 
-            int tmp = Random.Range(1, Consts.Values.slowZombieSpawnRate + 1);
+            int tmp = Random.Range(1, Consts.Values.Zombie.slowZombieSpawnRate + 1);
 
-            if (tmp == Consts.Values.slowZombieSpawnRate)
+            if (tmp == Consts.Values.Zombie.slowZombieSpawnRate)
             {
                 Instantiate(slowZombie, spawnPos, Quaternion.identity);
             }

@@ -19,6 +19,7 @@ public class EventController
     static event Action addScoreForTheFZ;
     static event Action addScoreForTheSZ;
     static event Action pause;
+    static event Action upgradeWeapon;
 
 
     public static void Subscribe(Consts.Events.events gameEvent, Action method)
@@ -27,6 +28,12 @@ public class EventController
         if (gameEvent == Consts.Events.events.fZhitPlayer)
         {
             fZHitPlayer += method;
+        }
+
+
+        if (gameEvent == Consts.Events.events.upgradeWeapon)
+        {
+            upgradeWeapon += method;
         }
 
         if (gameEvent == Consts.Events.events.pause)
@@ -99,6 +106,11 @@ public class EventController
             fZHitPlayer();
         }
 
+
+        if (eventParametr == Consts.Events.events.upgradeWeapon)
+        {
+            upgradeWeapon();
+        }
 
 
         if (eventParametr == Consts.Events.events.pause)

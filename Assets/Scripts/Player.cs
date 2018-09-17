@@ -56,15 +56,15 @@ public class Player : MonoBehaviour
             if (Health >= 100f)
                 return;
             else
-                Destroy(other.gameObject);           
+                Destroy(other.gameObject);
 
-            //if ((Health + Consts.Values.Meds.medKitCureEffect) >= 100)
-            //{
-                
-            //    Health = 100f;
-            //}
-            //else
-            //    Health += Consts.Values.Meds.medKitCureEffect;
+            if ((Health + Consts.Values.Meds.medKitCureEffect) >= 100)
+            {
+
+                Health = Consts.Values.Player.playermaxHealth;
+            }
+            else
+                Health += Consts.Values.Meds.medKitCureEffect;
 
             EventController.InvokeEvent(Consts.Events.events.updateHealth);
         }
@@ -80,11 +80,14 @@ public class Player : MonoBehaviour
     void Start()
     {
         isAlive = false;
-        Health = 10000000f;
+        Health = 100f;
+        Debug.Log("Health = 100f");
         EventController.Subscribe(Consts.Events.events.lose, Lose);
         EventController.Subscribe(Consts.Events.events.fZhitPlayer, fZHitPlayer);
         EventController.Subscribe(Consts.Events.events.sZhitPlayer, sZHitPlayer);
         EventController.Subscribe(Consts.Events.events.startGame, StartGame);
+        EventController.Subscribe(Consts.Events.events.replay, Replay);
+
 
         rb = GetComponent<Rigidbody>();
         StartCoroutine(Shooting());
@@ -110,6 +113,17 @@ public class Player : MonoBehaviour
 
 
     #region private methods
+
+    void Replay()
+    {
+        transform.position = Consts.Values.Player.startPos;
+        Health = Consts.Values.Player.playermaxHealth;
+        EventController.InvokeEvent(Consts.Events.events.updateHealth);
+        Debug.Log("Health = " + Health);
+        isAlive = true;
+    }
+
+
 
 
     void StartGame()

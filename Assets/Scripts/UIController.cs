@@ -74,6 +74,9 @@ public class UIController : MonoBehaviour {
         EventController.Subscribe(Consts.Events.events.addScoreForTheSZ, AddScoreSlowZombie);
         EventController.Subscribe(Consts.Events.events.lose, ShowDeathScreen);
         EventController.Subscribe(Consts.Events.events.spawnWave, UpdateWaveCounter);
+        EventController.Subscribe(Consts.Events.events.replay, Replay);
+        EventController.Subscribe(Consts.Events.events.updateWaveUI, UpdateWaveCounter);
+
 
     }
 
@@ -82,15 +85,35 @@ public class UIController : MonoBehaviour {
 
     #region private methods
 
+
+    void Replay()
+    {
+        joysticks.SetActive(true);
+        DeadScreen.SetActive(false);
+        UpdateWaveCounter();
+        UpdateHealthBar();
+        UpdateScore();
+        UpdateWaveCounter();
+
+    }
+
+
+
     void UpdateWaveCounter()
     {
-        GameConditionsManager.currentWave++;       
         currentWaveUI.text = GameConditionsManager.currentWave.ToString();
 
         if (GameConditionsManager.currentWave >= localBoard.WavesBestResult)
         {
             localBoard.WavesBestResult = GameConditionsManager.currentWave;
         }
+    }
+
+    void UpdateScore()
+    {
+
+        score.text = GameConditionsManager.mainScore.ToString();
+
     }
 
     void UpdateHealthBar()
@@ -149,6 +172,7 @@ public class UIController : MonoBehaviour {
 
     void ShowDeathScreen()
     {
+        joysticks.SetActive(false);
         wavedSurvivedResult.text = GameConditionsManager.currentWave.ToString();
         scoreResult.text = GameConditionsManager.mainScore.ToString();
         DeadScreen.SetActive(true);

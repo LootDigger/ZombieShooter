@@ -13,7 +13,9 @@ public class ZombieWavesController : MonoBehaviour
     private double difficulty;
     private bool isGameStarted;
     private bool isGamePaused;
-   
+    private GameObject[] zombieArray;
+    private GameObject[] meds;
+    private GameObject[] boosts;
     #endregion
 
 
@@ -42,6 +44,8 @@ public class ZombieWavesController : MonoBehaviour
         EventController.Subscribe(Consts.Events.events.spawnWave, SpawnWave);
         EventController.Subscribe(Consts.Events.events.pause, PauseGame);
         EventController.Subscribe(Consts.Events.events.reduceZombie, ReduceCount);
+        EventController.Subscribe(Consts.Events.events.replay, Replay);
+
     }
 
 
@@ -66,7 +70,9 @@ public class ZombieWavesController : MonoBehaviour
 
     public void SpawnWave()
     {
-        //GameConditionsManager.currentWave ++;
+
+        GameConditionsManager.currentWave++;
+        EventController.InvokeEvent(Consts.Events.events.updateWaveUI);
         if (!isGameStarted)
         {
             EventController.InvokeEvent(Consts.Events.events.startGame);
@@ -105,7 +111,7 @@ public class ZombieWavesController : MonoBehaviour
 
         zombiesAliveCount = tmpCount * 4;
 
-        
+        Debug.Log("zombie count " + zombiesAliveCount);
 
       
 
@@ -201,6 +207,35 @@ public class ZombieWavesController : MonoBehaviour
     #endregion
 
     #region private methods
+
+    void Replay()
+    {
+        boosts = GameObject.FindGameObjectsWithTag("Booster");
+
+        foreach(GameObject boosters in boosts)
+        {
+            Destroy(boosters);
+        }
+
+        meds = GameObject.FindGameObjectsWithTag("MedKit");
+
+        foreach (GameObject medKits in meds)
+        {
+            Destroy(medKits);
+        }
+
+
+        zombieArray =  GameObject.FindGameObjectsWithTag("Zombie");
+
+
+        foreach(GameObject zmb in zombieArray)
+        {
+            Destroy(zmb);
+        }
+
+
+    }
+
 
     void PauseGame()
     {

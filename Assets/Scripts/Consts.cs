@@ -20,7 +20,8 @@ public static class Consts
             addScoreForTheSZ,
             addScoreForTheFZ,
             pause,
-            upgradeWeapon
+            upgradeWeapon,
+            updateWaveUI
         };
 
     }
@@ -69,6 +70,14 @@ public static class Consts
         public static class Weapons
         {
             public static float PistolShootingSpeed = 120f;
+
+        }
+
+        public static class Player
+        {
+            public static Vector3 startPos = new Vector3(-15f,1.5f,-10f);
+            public static float playermaxHealth = 100f;
+
 
         }
 

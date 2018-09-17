@@ -20,6 +20,8 @@ public class EventController
     static event Action addScoreForTheSZ;
     static event Action pause;
     static event Action upgradeWeapon;
+    static event Action updateWaveCounterUI;
+
 
 
     public static void Subscribe(Consts.Events.events gameEvent, Action method)
@@ -28,6 +30,13 @@ public class EventController
         if (gameEvent == Consts.Events.events.fZhitPlayer)
         {
             fZHitPlayer += method;
+        }
+
+
+
+        if (gameEvent == Consts.Events.events.updateWaveUI)
+        {
+            updateWaveCounterUI += method;
         }
 
 
@@ -110,6 +119,13 @@ public class EventController
         if (eventParametr == Consts.Events.events.upgradeWeapon)
         {
             upgradeWeapon();
+        }
+
+
+
+        if (eventParametr == Consts.Events.events.updateWaveUI)
+        {
+            updateWaveCounterUI();
         }
 
 

@@ -39,6 +39,8 @@ public class DoublePistol : MonoBehaviour {
     {
         CalculateShootingDelay();
         EventController.Subscribe(Consts.Events.events.upgradeWeapon, UpgradeWeapon);
+        EventController.Subscribe(Consts.Events.events.replay, Replay);
+
         isRightPistolShooting = false;
         StartCoroutine(Shooting());
     }
@@ -51,19 +53,27 @@ public class DoublePistol : MonoBehaviour {
         {
             isNeedToShoot = true;
         }
-        else if(rightStick.Vertical == 0 && rightStick.Horizontal == 0)
+        else if (rightStick.Vertical == 0 && rightStick.Horizontal == 0)
         {
             isNeedToShoot = false;
         }
 
     }
-    
+
     #endregion
 
 
 
     #region Private Methods
-    
+
+    void Replay()
+    {
+
+        Consts.Values.Weapons.PistolShootingSpeed = 120f;
+
+
+    }
+
     void CalculateShootingDelay()
     {
         shootingDelay = (60f/ Consts.Values.Weapons.PistolShootingSpeed);

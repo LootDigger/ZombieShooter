@@ -17,6 +17,8 @@ public class SlowZombie : Zombie
     [SerializeField]
     private GameObject medKit;
 
+    [SerializeField]
+    private GameObject battery;
 
     [SerializeField]
     private GameObject boost;
@@ -32,8 +34,8 @@ public class SlowZombie : Zombie
         {
             HP -= 10f;
             Destroy(other.gameObject);
+            thisAnimator.SetTrigger("isShoted");
         }
-        thisAnimator.SetTrigger("isShoted");
         thisAnimator.SetTrigger("exitShotAnim");
 
     }
@@ -68,12 +70,20 @@ public class SlowZombie : Zombie
     {
         if(HP<=0)
         {
+            GameConditionsManager.countOfKilledZombies++;
+
             this.isAlive = false;
             Destroy(this.gameObject);
 
             if(Random.Range(1f,Consts.Values.Meds.medKitDropChance) == 1f)
             {
                 Instantiate(medKit, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+            }
+            else 
+            if (Random.Range(1, Consts.Values.FlashLight.batterySpawnChanse + 1) == 1)
+            {
+                Instantiate(battery, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+
             }
 
             EventController.InvokeEvent(Consts.Events.events.reduceZombie);

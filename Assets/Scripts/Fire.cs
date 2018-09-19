@@ -7,7 +7,7 @@ public class Fire : MonoBehaviour {
 
     #region Private fields
 
-    Light light;
+    new  Light  light;
     private float counter;
     private float fireDarknessDelay;
 
@@ -19,6 +19,7 @@ public class Fire : MonoBehaviour {
     void Start()
     {
         EventController.Subscribe(Consts.Events.events.spawnWave, DecreaseRange);
+        EventController.Subscribe(Consts.Events.events.replay, Restart);
         fireDarknessDelay = 1.5f;
         light = GetComponent<Light>();
         RecursionLight();
@@ -53,6 +54,11 @@ public class Fire : MonoBehaviour {
 
     }
 
+    void Restart()
+    {
+        Debug.Log("Restart");
+        light.range = 100f;        
+    }
 
     void DecreaseRange()
     {

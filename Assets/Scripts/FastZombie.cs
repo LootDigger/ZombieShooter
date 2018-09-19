@@ -18,6 +18,9 @@ public class FastZombie : Zombie {
     private GameObject medKit;
 
     [SerializeField]
+    private GameObject battery;
+
+    [SerializeField]
     private GameObject boost;
 
     #endregion
@@ -66,6 +69,7 @@ public class FastZombie : Zombie {
     {
         if (HP <= 0)
         {
+            GameConditionsManager.countOfKilledZombies++;
             this.isAlive = false;
             Destroy(this.gameObject);
             EventController.InvokeEvent(Consts.Events.events.reduceZombie);
@@ -74,6 +78,17 @@ public class FastZombie : Zombie {
             if (Random.Range(1, Consts.Values.Meds.medKitDropChance + 1) == 1)
             {
                 Instantiate(medKit, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+                Debug.Log("if");
+            }
+            else
+            {
+    
+            }
+            if (Random.Range(1, Consts.Values.FlashLight.batterySpawnChanse + 1) == 1)
+            {
+                Debug.Log("else");
+                Instantiate(battery, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+                    
             }
 
             if (GameConditionsManager.currentWave >= 2)

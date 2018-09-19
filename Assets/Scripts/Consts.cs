@@ -21,7 +21,8 @@ public static class Consts
             addScoreForTheFZ,
             pause,
             upgradeWeapon,
-            updateWaveUI
+            updateWaveUI,
+            flashLightTurned
         };
 
     }
@@ -37,13 +38,22 @@ public static class Consts
             public static float slowZombieAttackCooldown = 2f;
             public static float fastZombieSpeed = 3.5f;
             public static float slowZombieSpeed = 2.5f;
-            public static float zombieSpawnDistance = 35f;
+            public static float zombieSpawnDistance = 50f;
             public static int slowZombieSpawnRate = 10;
             public static int scoreCountForSlowZombieKill = 100;
             public static int scoreCountForFastZombieKill = 10;
         }
 
-       public static class Lightning
+        public static class FlashLight
+        {
+            public static float flashLightlifeCycle = 15f;
+            public static float batteryPower = 15f;
+            public static int batterySpawnChanse = 10;
+
+
+        }
+
+        public static class Lightning
         {
 
             public static float minLightIntensivity = 2f;
@@ -75,7 +85,7 @@ public static class Consts
 
         public static class Player
         {
-            public static Vector3 startPos = new Vector3(-15f,1.5f,-10f);
+            public static Vector3 startPos = new Vector3(15,1.5f,43f);
             public static float playermaxHealth = 100f;
 
 

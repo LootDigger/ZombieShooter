@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class UIController : MonoBehaviour {
 
     #region Private fields
-    
+
+    private bool isPaused;
+    private Vector3 tmpColor;
+
     #endregion
 
 
@@ -17,7 +21,13 @@ public class UIController : MonoBehaviour {
     LeaderBoard localBoard;
 
     [SerializeField]
+    SpriteRenderer bloodEffect;
+
+    [SerializeField]
     Slider healthBarSlider;
+    
+    [SerializeField]
+    Slider flashLightSlider;
 
     [SerializeField]
     TextMeshProUGUI score;
@@ -32,6 +42,9 @@ public class UIController : MonoBehaviour {
     GameObject pauseGameBtn;
 
     [SerializeField]
+    GameObject flashLightBtn;
+
+    [SerializeField]
     GameObject joysticks;
 
     [SerializeField]
@@ -39,6 +52,21 @@ public class UIController : MonoBehaviour {
 
     [SerializeField]
     GameObject DeadScreen;
+
+    [SerializeField]
+    GameObject PauseScreen;
+
+    [SerializeField]
+    Image HealthBarFill;
+
+    [SerializeField]
+    FlashLight flashLight;
+
+    [SerializeField]
+    TextMeshProUGUI waveCountinPause;
+
+    [SerializeField]
+    TextMeshProUGUI ZombieKilledCount;
 
     [SerializeField]
     TextMeshProUGUI wavedSurvivedResult;
@@ -66,7 +94,7 @@ public class UIController : MonoBehaviour {
 
     void Start()
     {
-
+        isPaused = false;
         GameConditionsManager.mainScore = 0;
         EventController.Subscribe(Consts.Events.events.startGame, StartGame);
         EventController.Subscribe(Consts.Events.events.updateHealth, UpdateHealthBar);
@@ -76,6 +104,17 @@ public class UIController : MonoBehaviour {
         EventController.Subscribe(Consts.Events.events.spawnWave, UpdateWaveCounter);
         EventController.Subscribe(Consts.Events.events.replay, Replay);
         EventController.Subscribe(Consts.Events.events.updateWaveUI, UpdateWaveCounter);
+        EventController.Subscribe(Consts.Events.events.fZhitPlayer, ShowBloodEffect);
+        EventController.Subscribe(Consts.Events.events.sZhitPlayer, ShowBloodEffect);
+
+
+    }
+
+
+
+    void Update()
+    {
+        CheckFlashLight();
 
 
     }
@@ -84,10 +123,14 @@ public class UIController : MonoBehaviour {
 
 
     #region private methods
-
-
+    
     void Replay()
     {
+        if(isPaused)
+        {
+            PauseGame();
+        }
+
         joysticks.SetActive(true);
         DeadScreen.SetActive(false);
         UpdateWaveCounter();
@@ -126,11 +169,24 @@ public class UIController : MonoBehaviour {
         {
             healthBarSlider.value = health; 
         }
+        if (health >= 0.5)
+        {
+            HealthBarFill.color = new Color((1f-health) * 2, 1, 0);
+        }
+        if (health < 0.5)
+        {
+            HealthBarFill.color = new Color(1, (health * 2f), 0);
+        }
+
     }
 
     public void PauseGame()
     {
+        OnShowpauseScreen();    
+        isPaused = !isPaused;
         EventController.InvokeEvent(Consts.Events.events.pause);
+        PauseScreen.SetActive(isPaused);
+        pauseGameBtn.SetActive(!isPaused);
     }
 
     void StartGame()
@@ -141,6 +197,7 @@ public class UIController : MonoBehaviour {
         scorePanel.SetActive(true);
         pauseGameBtn.SetActive(true);
         countWaveUI.SetActive(true);
+        flashLightBtn.SetActive(true);
     }
 
 
@@ -183,6 +240,42 @@ public class UIController : MonoBehaviour {
 
     }
 
+
+    void OnShowpauseScreen()
+    {
+        ZombieKilledCount.text = GameConditionsManager.countOfKilledZombies.ToString();
+        waveCountinPause.text = GameConditionsManager.currentWave.ToString();
+
+    }
+
+    void CheckFlashLight()
+    {
+        flashLightSlider.value = (flashLight.lightPower/15f);
+
+    }
+
+
+    void ShowBloodEffect()
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(bloodEffect.DOColor(new Vector4(1, 0, 0, 1), 0.2f));
+        seq.Append(bloodEffect.DOColor(new Vector4(1, 0, 0, 0), 0.2f));
+
+    }
+
+
     #endregion
 
+
+
+
+    #region Public Methods
+
+    public void OnFlashLightTurnedOn()
+    {
+        EventController.InvokeEvent(Consts.Events.events.flashLightTurned);
+    }
+
+
+    #endregion
 }

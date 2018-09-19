@@ -8,6 +8,7 @@ TagManager:
   - MedKit
   - Booster
   - Zombie
+  - Battery
   layers:
   - Default
   - TransparentFX

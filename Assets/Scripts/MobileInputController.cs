@@ -11,7 +11,7 @@ public class MobileInputController : MonoBehaviour,IBeginDragHandler,IDragHandle
     [Header("Input Values")]
     public float Horizontal = 0;
     public float Vertical = 0;
-
+    public bool isPressed = false;
 
     public float offset;
     Vector2 PointPosition;
@@ -42,13 +42,14 @@ public class MobileInputController : MonoBehaviour,IBeginDragHandler,IDragHandle
     {
         OnDrag(eventData);
         stic.DOFade(0.5f, 0f);
-
+        isPressed = true;
 
     }
 
     public void OnPointerUp(PointerEventData eventData) {
         OnEndDrag(eventData);
         stic.DOFade(1f, 0f);
+        isPressed = false;
 
     }
 

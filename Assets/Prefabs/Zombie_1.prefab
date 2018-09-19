@@ -824,7 +824,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1209625741541444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.683304, y: 5.684342e-14, z: 5.547188}
+  m_LocalPosition: {x: 15.759018, y: 0, z: 53.530586}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4257915678536030}
@@ -865,6 +865,7 @@ MonoBehaviour:
   HP: 30
   damagePerHit: 0
   medKit: {fileID: 1146635458487816, guid: 8b7e95e87f48abb4fb3edc747aca6e70, type: 2}
+  battery: {fileID: 1517732901994048, guid: ca2dd8946184cf9468c31f9edae1adce, type: 2}
   boost: {fileID: 1550589625255364, guid: 939341ee2026bff40a50afd126a67d6c, type: 2}
 --- !u!136 &136793084220017726
 CapsuleCollider:

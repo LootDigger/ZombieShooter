@@ -5,8 +5,6 @@ using System;
 
 public class EventController
 {
-
-
     static event Action fZHitPlayer;
     static event Action sZHitPlayer;
     static event Action startGame;
@@ -21,6 +19,8 @@ public class EventController
     static event Action pause;
     static event Action upgradeWeapon;
     static event Action updateWaveCounterUI;
+    static event Action flashLightTurned;
+
 
 
 
@@ -32,6 +32,11 @@ public class EventController
             fZHitPlayer += method;
         }
 
+
+        if (gameEvent == Consts.Events.events.flashLightTurned)
+        {
+            flashLightTurned += method;
+        }
 
 
         if (gameEvent == Consts.Events.events.updateWaveUI)
@@ -113,6 +118,12 @@ public class EventController
         if (eventParametr == Consts.Events.events.fZhitPlayer)
         {
             fZHitPlayer();
+        }
+
+
+        if (eventParametr == Consts.Events.events.flashLightTurned)
+        {
+            flashLightTurned();
         }
 
 

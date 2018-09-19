@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     #region serialize Fields
 
     [SerializeField]
+    private FlashLight flashLight;
+
+    [SerializeField]
     private float speed;
 
     [SerializeField]
@@ -29,9 +32,6 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private MobileInputController rightStick;
-
-    [SerializeField]
-    private GameObject bullet;
 
     [SerializeField]
     private GameObject blood;
@@ -72,6 +72,12 @@ public class Player : MonoBehaviour
             if(other.tag == "Booster")
         {
             EventController.InvokeEvent(Consts.Events.events.upgradeWeapon);
+            Destroy(other.gameObject);
+        }
+        else
+            if(other.tag == "Battery")
+        {
+            flashLight.lightPower = Consts.Values.FlashLight.batteryPower;
             Destroy(other.gameObject);
         }
 
@@ -138,17 +144,19 @@ public class Player : MonoBehaviour
 
     void PlayerControl()
     {
-
         rb.MovePosition(transform.position + Vector3.right * speed * leftStick.Horizontal + Vector3.forward * speed * leftStick.Vertical);
 
+        if (rightStick.isPressed)
+        {
+            Vector3 tmpAngles = transform.localEulerAngles;
+            tmpAngles.y = Vector3.Angle(new Vector3(0, 1), new Vector2(rightStick.Horizontal, rightStick.Vertical));
 
-        Vector3 tmpAngles = transform.localEulerAngles;
-        tmpAngles.y = Vector3.Angle(new Vector3(0, 1), new Vector2(rightStick.Horizontal, rightStick.Vertical));
 
-        if (rightStick.Horizontal < 0)
-            tmpAngles.y = 360 - tmpAngles.y;
-        transform.localEulerAngles = tmpAngles;
-
+            if (rightStick.Horizontal < 0)
+                tmpAngles.y = 360 - tmpAngles.y;
+            transform.localEulerAngles = tmpAngles;
+        }
+        
     }
 
     
@@ -157,7 +165,7 @@ public class Player : MonoBehaviour
     {
         Health -= Consts.Values.Zombie.fZDamage;
         EventController.InvokeEvent(Consts.Events.events.updateHealth);
-       Destroy(Instantiate(blood, transform.position, Quaternion.identity),1f);
+        Destroy(Instantiate(blood, transform.position, Quaternion.identity),1f);
     }
 
 

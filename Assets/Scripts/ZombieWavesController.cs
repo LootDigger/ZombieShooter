@@ -45,7 +45,6 @@ public class ZombieWavesController : MonoBehaviour
         EventController.Subscribe(Consts.Events.events.pause, PauseGame);
         EventController.Subscribe(Consts.Events.events.reduceZombie, ReduceCount);
         EventController.Subscribe(Consts.Events.events.replay, Replay);
-
     }
 
 

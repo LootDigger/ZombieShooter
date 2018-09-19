@@ -899,6 +899,7 @@ MonoBehaviour:
   HP: 100
   damagePerHit: 30
   medKit: {fileID: 1146635458487816, guid: 8b7e95e87f48abb4fb3edc747aca6e70, type: 2}
+  battery: {fileID: 1517732901994048, guid: ca2dd8946184cf9468c31f9edae1adce, type: 2}
   boost: {fileID: 1550589625255364, guid: 939341ee2026bff40a50afd126a67d6c, type: 2}
 --- !u!136 &136273843765732110
 CapsuleCollider:

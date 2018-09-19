@@ -12,6 +12,7 @@ public class GameConditionsManager:MonoBehaviour
     public static int mainScore;
     public static int currentWave = 0;
     public static int numberOfDeadZombies = 0;
+    public static int countOfKilledZombies = 0;
 
     #endregion
 
@@ -19,14 +20,6 @@ public class GameConditionsManager:MonoBehaviour
 
 
     #region Unity LifeCycle
-
-    void Start()
-    {
-        
-
-    }
-
-
 
     #endregion
 
@@ -38,6 +31,7 @@ public class GameConditionsManager:MonoBehaviour
         currentWave = 0 ;
         EventController.InvokeEvent(Consts.Events.events.replay);
         EventController.InvokeEvent(Consts.Events.events.spawnWave);
+        countOfKilledZombies = 0;
 
     }
 

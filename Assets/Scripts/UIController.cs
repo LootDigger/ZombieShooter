@@ -48,6 +48,9 @@ public class UIController : MonoBehaviour {
     GameObject joysticks;
 
     [SerializeField]
+    GameObject lighterBar;
+
+    [SerializeField]
     GameObject healthBar;
 
     [SerializeField]
@@ -198,6 +201,7 @@ public class UIController : MonoBehaviour {
         pauseGameBtn.SetActive(true);
         countWaveUI.SetActive(true);
         flashLightBtn.SetActive(true);
+        lighterBar.SetActive(true);
     }
 
 

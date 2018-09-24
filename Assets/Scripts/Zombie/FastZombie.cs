@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Tod;
 
 public class FastZombie : Zombie {
 
@@ -12,18 +13,6 @@ public class FastZombie : Zombie {
 
     #endregion
 
-    #region SerializableFields
-
-    [SerializeField]
-    private GameObject medKit;
-
-    [SerializeField]
-    private GameObject battery;
-
-    [SerializeField]
-    private GameObject boost;
-
-    #endregion
 
 
     #region Unity lifecycle
@@ -36,26 +25,15 @@ public class FastZombie : Zombie {
         thisAgent = GetComponent<NavMeshAgent>();
         thisAnimator = GetComponent<Animator>();
         Player = GameObject.Find("Player");
-
+        EventController.spawnLoot += SpawnLoot;
     }
 
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "bullet")
-        {
-            HP -= 10f;
-            Destroy(other.gameObject);
-        }
-        thisAnimator.SetTrigger("isShoted");
-        thisAnimator.SetTrigger("exitShotAnim");
 
-    }
 
     void Update()
     {
         CheckDistance();
-        CheckHealth();
         if (this.isAlive)
             thisAgent.SetDestination(Player.transform.position);
     }
@@ -65,30 +43,29 @@ public class FastZombie : Zombie {
 
     #region private methods
 
-    void CheckHealth()
+    void SpawnLoot()
     {
-        if (HP <= 0)
-        {
-            GameConditionsManager.countOfKilledZombies++;
-            this.isAlive = false;
-            Destroy(this.gameObject);
-            EventController.InvokeEvent(Consts.Events.events.reduceZombie);
-            EventController.InvokeEvent(Consts.Events.events.addScoreForTheFZ);
-
+       
+        
             if (Random.Range(1, Consts.Values.Meds.medKitDropChance + 1) == 1)
             {
-                Instantiate(medKit, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-                Debug.Log("if");
-            }
+            //  Instantiate(medKit, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+
+                GameObject go =  UnityPoolManager.Instance.Pop<UnityPoolObject>(2, false).gameObject;
+                go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+                go.SetActive(true);
+          
+        }
             else
             {
-    
+
             }
             if (Random.Range(1, Consts.Values.FlashLight.batterySpawnChanse + 1) == 1)
             {
-                Debug.Log("else");
-                Instantiate(battery, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-                    
+                Transform go = UnityPoolManager.Instance.Pop<UnityPoolObject>(0, false).GetComponent<Transform>();
+                go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+               // go.gameObject.SetActive(true);
+
             }
 
             if (GameConditionsManager.currentWave >= 2)
@@ -97,7 +74,9 @@ public class FastZombie : Zombie {
                 {
 
                     GameConditionsManager.numberOfDeadZombies = 0;
-                    Instantiate(boost, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+                    Transform go = UnityPoolManager.Instance.Pop<UnityPoolObject>(1, false).GetComponent<Transform>();
+                    go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+                    go.gameObject.SetActive(true);
                 }
                 else
                 {
@@ -106,7 +85,9 @@ public class FastZombie : Zombie {
                 }
             }
 
-        }
+
+
+        
     }
 
 

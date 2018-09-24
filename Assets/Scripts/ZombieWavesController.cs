@@ -86,7 +86,7 @@ public class ZombieWavesController : MonoBehaviour
 
         if (DifficultyController.isMaxim)
         {
-            spawnCount = GameConditionsManager.currentWave * difficulty * Consts.Values.Balance.RisingCoef;
+            spawnCount =  GameConditionsManager.currentWave * difficulty * Consts.Values.Balance.RisingCoef;
         }
 
         else if (DifficultyController.isMinim)
@@ -96,7 +96,8 @@ public class ZombieWavesController : MonoBehaviour
         }
         else
         {
-            spawnCount = GameConditionsManager.currentWave * difficulty;           
+            spawnCount =  GameConditionsManager.currentWave * difficulty * 2 ;
+            Debug.Log("Calculate!");     
         }
 
        
@@ -109,6 +110,7 @@ public class ZombieWavesController : MonoBehaviour
         }
 
         zombiesAliveCount = tmpCount * 4;
+        Debug.Log("tmp count " + tmpCount);
 
         Debug.Log("zombie count " + zombiesAliveCount);
 
@@ -125,7 +127,7 @@ public class ZombieWavesController : MonoBehaviour
             int tmp = Random.Range(1, Consts.Values.Zombie.slowZombieSpawnRate + 1);
 
 
-            if (tmp == Consts.Values.Zombie.slowZombieSpawnRate)
+            if (tmp == Consts.Values.Zombie.slowZombieSpawnRate && DifficultyController.isMaxim)
             {
                 Instantiate(slowZombie, spawnPos, Quaternion.identity);
             }

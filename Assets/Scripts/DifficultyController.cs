@@ -39,6 +39,7 @@ public static class DifficultyController
                 isMaxim = true;
                 int diff = tmpCurrentWaveDef / 3;
                 diff += 1;
+                diff += 1;
                 return diff;
             }
         }

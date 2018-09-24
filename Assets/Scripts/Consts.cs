@@ -22,7 +22,9 @@ public static class Consts
             pause,
             upgradeWeapon,
             updateWaveUI,
-            flashLightTurned
+            flashLightTurned,
+            fillFlashLight,
+            spawnLoot
         };
 
     }
@@ -71,7 +73,7 @@ public static class Consts
 
         public static class Balance
         {
-            public static double loweringCoef = 2;
+            public static double loweringCoef = 6;
             public static double RisingCoef = 1.5;
 
 
@@ -87,6 +89,7 @@ public static class Consts
         {
             public static Vector3 startPos = new Vector3(15,1.5f,43f);
             public static float playermaxHealth = 100f;
+            public static float speed = 0.1f;
 
 
         }

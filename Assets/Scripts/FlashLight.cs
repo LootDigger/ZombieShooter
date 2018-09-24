@@ -39,7 +39,6 @@ public class FlashLight : MonoBehaviour {
         if(isTurnedOn && lightPower >= 0)
         {
             lightPower -= Time.fixedDeltaTime;
-            Debug.Log(lightPower);
             light.intensity = lightPower * 6.666666f;
         }
 

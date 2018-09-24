@@ -165,7 +165,7 @@ public class UIController : MonoBehaviour {
     void UpdateHealthBar()
     {
         
-        float health = GameObject.Find("Player").GetComponent<Player>().Health;
+        float health = GameObject.Find("Player").GetComponent<PlayerHealth>().Health;
         health /= 100f;
 
         if (health >= 0)

@@ -12,34 +12,7 @@ public class SlowZombie : Zombie
 
     #endregion
 
-    #region Serializable fields
-
-    [SerializeField]
-    private GameObject medKit;
-
-    [SerializeField]
-    private GameObject battery;
-
-    [SerializeField]
-    private GameObject boost;
-
-    #endregion
-
-
-    #region Unity lifecycle
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "bullet")
-        {
-            HP -= 10f;
-            Destroy(other.gameObject);
-            thisAnimator.SetTrigger("isShoted");
-        }
-        thisAnimator.SetTrigger("exitShotAnim");
-
-    }
-
+   #region Unity lifecycle
 
     void Start()
     {
@@ -49,13 +22,14 @@ public class SlowZombie : Zombie
         thisAgent = GetComponent<NavMeshAgent>();
         thisAnimator = GetComponent<Animator>();
         Player = GameObject.Find("Player");
+        EventController.spawnLoot += SpawnLoot;
+
     }
 
 
     void Update()
     {
         CheckDistance();
-        CheckHealth();
         if (this.isAlive)
             thisAgent.SetDestination(Player.transform.position);
     }
@@ -66,44 +40,43 @@ public class SlowZombie : Zombie
 
     #region private methods
 
-    void CheckHealth()
+
+    void SpawnLoot()
     {
-        if(HP<=0)
+        Debug.Log("spawnLoot");
+        if (Random.Range(1, Consts.Values.Meds.medKitDropChance + 1) == 1)
         {
-            GameConditionsManager.countOfKilledZombies++;
+            //Instantiate(medKit, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+           
+        }
+        else
+        {
 
-            this.isAlive = false;
-            Destroy(this.gameObject);
+        }
+        if (Random.Range(1, Consts.Values.FlashLight.batterySpawnChanse + 1) == 1)
+        {
+            Instantiate(battery, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
 
-            if(Random.Range(1f,Consts.Values.Meds.medKitDropChance) == 1f)
+        }
+
+        if (GameConditionsManager.currentWave >= 2)
+        {
+            if (GameConditionsManager.numberOfDeadZombies == 9)
             {
-                Instantiate(medKit, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+
+                GameConditionsManager.numberOfDeadZombies = 0;
+                Instantiate(boost, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
             }
-            else 
-            if (Random.Range(1, Consts.Values.FlashLight.batterySpawnChanse + 1) == 1)
+            else
             {
-                Instantiate(battery, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-
-            }
-
-            EventController.InvokeEvent(Consts.Events.events.reduceZombie);
-            EventController.InvokeEvent(Consts.Events.events.addScoreForTheSZ);
-
-            if (GameConditionsManager.currentWave >= 2)
-            {
-                if (GameConditionsManager.numberOfDeadZombies == 9)
-                {
-
-                    GameConditionsManager.numberOfDeadZombies = 0;
-                    Instantiate(boost, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-                }
-                else
-                {
-                    GameConditionsManager.numberOfDeadZombies++;
-                    Debug.Log("++");
-                }
+                GameConditionsManager.numberOfDeadZombies++;
+                Debug.Log("++");
             }
         }
+
+
+
+
     }
 
 
@@ -114,7 +87,6 @@ public class SlowZombie : Zombie
             isReadyToAttack = false;
             thisAgent.speed = 0f;
             StartCoroutine(CoolDown());
-
         }
 
         if (Vector3.Distance(transform.position, this.Player.transform.position) > Consts.Values.Zombie.attackDistance)
@@ -124,8 +96,7 @@ public class SlowZombie : Zombie
 
     }
 
-        
-
+       
     void TryToAttack()
     {
         if (Vector3.Distance(transform.position, this.Player.transform.position) <= Consts.Values.Zombie.attackDistance)

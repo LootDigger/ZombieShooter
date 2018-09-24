@@ -22,13 +22,15 @@ GameObject:
   - component: {fileID: 33320083800902010}
   - component: {fileID: 23181877672808542}
   - component: {fileID: 136606738437875056}
+  - component: {fileID: 114840138393567648}
+  - component: {fileID: 114902009622982698}
   m_Layer: 0
   m_Name: Battery
   m_TagString: Battery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4056830324704910
 Transform:
   m_ObjectHideFlags: 1
@@ -84,6 +86,29 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1517732901994048}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114840138393567648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1517732901994048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2976045f1ac8be5409a096ded18a3e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114902009622982698
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1517732901994048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0439f12196f06d41958143f7fa3ca33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolType: 0
 --- !u!136 &136606738437875056
 CapsuleCollider:
   m_ObjectHideFlags: 1

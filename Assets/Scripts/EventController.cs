@@ -20,6 +20,8 @@ public class EventController
     static event Action upgradeWeapon;
     static event Action updateWaveCounterUI;
     static event Action flashLightTurned;
+    public static event Action fillFlashlight;
+    public static event Action spawnLoot;
 
 
 
@@ -115,11 +117,24 @@ public class EventController
   
     public static void InvokeEvent(Consts.Events.events eventParametr)
     {
-        if (eventParametr == Consts.Events.events.fZhitPlayer)
+        if (eventParametr == Consts.Events.events.spawnLoot)
         {
-            fZHitPlayer();
+            if (spawnLoot != null)
+                spawnLoot();
         }
 
+        if (eventParametr == Consts.Events.events.fZhitPlayer)
+        {
+            if (fZHitPlayer != null)
+                fZHitPlayer();
+        }
+
+
+        if (eventParametr == Consts.Events.events.fillFlashLight)
+        {
+            if(fillFlashlight!=null)
+            fillFlashlight();
+        }
 
         if (eventParametr == Consts.Events.events.flashLightTurned)
         {

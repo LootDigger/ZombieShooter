@@ -450,6 +450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4855223646787006}
+  - component: {fileID: 65926444120128002}
   m_Layer: 0
   m_Name: Bip01
   m_TagString: Untagged
@@ -728,7 +729,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109769225160964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.974167, y: 0, z: 47.809334}
+  m_LocalPosition: {x: 1.5658722, y: 0, z: 37.014076}
   m_LocalScale: {x: 3, y: 2.5, z: 3}
   m_Children:
   - {fileID: 4855223646787006}
@@ -942,6 +943,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1566268476052994}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65926444120128002
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1963009667977356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.45788753, y: 0.5366521, z: 1.7014264}
+  m_Center: {x: -0.03435147, y: -0.018114757, z: 0.04210949}
 --- !u!95 &95456151903176322
 Animator:
   serializedVersion: 3

@@ -75,7 +75,7 @@ public class ZombieHealth : MonoBehaviour {
             EventController.InvokeEvent(Consts.Events.events.reduceZombie);
             EventController.InvokeEvent(Consts.Events.events.addScoreForTheFZ);
 
-            EventController.InvokeEvent(Consts.Events.events.spawnLoot);
+            SpawnLoot();
             Debug.Log("HP is less than zero");
         }
     }
@@ -88,6 +88,52 @@ public class ZombieHealth : MonoBehaviour {
 
 
     #region public methods
+
+
+    void SpawnLoot()
+    {
+        Debug.Log("Spawn something");
+
+        if (Random.Range(1, Consts.Values.Meds.medKitDropChance + 1) == 1)
+        {
+            Debug.Log("Spawn Meds");
+            GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(2, true).gameObject;
+            go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+
+        }
+        else
+        {
+
+        }
+        if (Random.Range(1, Consts.Values.FlashLight.batterySpawnChanse + 1) == 1)
+        {
+            Debug.Log("Spawn battery");
+            GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(0, true).gameObject;
+            go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+
+        }
+
+        if (GameConditionsManager.currentWave >= 2)
+        {
+            if (GameConditionsManager.numberOfDeadZombies == 9)
+            {
+                Debug.Log("Spawn booster");
+
+                GameConditionsManager.numberOfDeadZombies = 0;
+                GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(1, true).gameObject;
+                go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+            }
+            else
+            {
+                GameConditionsManager.numberOfDeadZombies++;
+                Debug.Log("++");
+            }
+        }
+
+
+
+
+    }
 
     public void Reborn()
     {

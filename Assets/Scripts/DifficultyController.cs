@@ -32,11 +32,13 @@ public static class DifficultyController
             {
                 int diff = tmpCurrentWaveDef / 3;
                 isMaxim = false;
+                isMinim = false;
                 return diff;
             }
             else if (counter == 1)
             {
                 isMaxim = true;
+                isMinim = false;
                 int diff = tmpCurrentWaveDef / 3;
                 diff += 1;
                 diff += 1;
@@ -46,6 +48,7 @@ public static class DifficultyController
         else
         {
             isMaxim = false;
+            isMinim = true;
             int diff = tmpCurrentWaveDef / 3;
             return diff;
         }

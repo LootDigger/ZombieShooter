@@ -53,7 +53,7 @@ public static class Consts
         {
             public static float flashLightlifeCycle = 15f;
             public static float batteryPower = 15f;
-            public static int batterySpawnChanse = 10;
+            public static int batterySpawnChanse = 30;
 
 
         }
@@ -68,15 +68,15 @@ public static class Consts
         public static class Meds
         {
 
-            public static float medKitCureEffect = 10f;
-            public static int medKitDropChance = 10;
+            public static float medKitCureEffect = 20f;
+            public static int medKitDropChance = 20;
         }
 
         
 
         public static class Balance
         {
-            public static double loweringCoef = 6;
+            public static double loweringCoef = 2;
             public static double RisingCoef = 1.5;
 
 

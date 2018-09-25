@@ -102,31 +102,33 @@ public class ZombieHealth : MonoBehaviour {
 
         }
         else
-        {
-
-        }
-        if (Random.Range(1, Consts.Values.FlashLight.batterySpawnChanse + 1) == 1)
+         if (Random.Range(1, Consts.Values.FlashLight.batterySpawnChanse + 1) == 1)
         {
             Debug.Log("Spawn battery");
             GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(0, true).gameObject;
             go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
 
         }
-
+       
         if (GameConditionsManager.currentWave >= 2)
         {
-            if (GameConditionsManager.numberOfDeadZombies == 9)
-            {
-                Debug.Log("Spawn booster");
 
-                GameConditionsManager.numberOfDeadZombies = 0;
-                GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(1, true).gameObject;
-                go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-            }
-            else
+           
             {
-                GameConditionsManager.numberOfDeadZombies++;
-                Debug.Log("++");
+                if (GameConditionsManager.numberOfDeadZombies == 20)
+                {
+                    Debug.Log("Spawn booster");
+
+                    GameConditionsManager.numberOfDeadZombies = 0;
+                    GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(1, true).gameObject;
+                    go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+                }
+                else
+
+                {
+                    GameConditionsManager.numberOfDeadZombies++;
+                    Debug.Log("++");
+                }
             }
         }
 

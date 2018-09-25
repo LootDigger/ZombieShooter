@@ -86,22 +86,26 @@ public class ZombieWavesController : MonoBehaviour
 
 
 
+        //spawnCount = GameConditionsManager.currentWave * difficulty * 2;
+        //Debug.Log("Calculate!");
+        spawnCount = GameConditionsManager.currentWave * 4;
+
+
         if (DifficultyController.isMaxim)
         {
-            spawnCount =  GameConditionsManager.currentWave * difficulty * Consts.Values.Balance.RisingCoef;
+            Debug.Log("MaximLvl");
+            spawnCount *= Consts.Values.Balance.RisingCoef;  
         }
 
-        else if (DifficultyController.isMinim)
+        else
+        if (DifficultyController.isMinim)
         {
-            spawnCount = GameConditionsManager.currentWave * difficulty;
+            Debug.Log("MinLvl");
+
             spawnCount /= Consts.Values.Balance.loweringCoef;
         }
-        else
-        {
-            spawnCount =  GameConditionsManager.currentWave * difficulty * 2 ;
-            Debug.Log("Calculate!");     
-        }
 
+        Debug.Log("spawnCount = " + spawnCount);
        
 
         int tmpCount = (int)(spawnCount / 4);

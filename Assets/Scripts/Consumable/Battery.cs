@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Tod;
 public class Battery : ConsumableObject
 {
 
@@ -9,7 +9,7 @@ public class Battery : ConsumableObject
     {
 
         EventController.InvokeEvent(Consts.Events.events.fillFlashLight);
-        Destroy(this.gameObject);
+        gameObject.GetComponent<UnityPoolObject>().Push();
         
     }
 

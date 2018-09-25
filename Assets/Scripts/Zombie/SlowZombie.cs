@@ -17,12 +17,10 @@ public class SlowZombie : Zombie
     void Start()
     {
         isReadyToAttack = true;
-
         this.isAlive = true;
         thisAgent = GetComponent<NavMeshAgent>();
         thisAnimator = GetComponent<Animator>();
         Player = GameObject.Find("Player");
-        EventController.spawnLoot += SpawnLoot;
 
     }
 
@@ -41,43 +39,7 @@ public class SlowZombie : Zombie
     #region private methods
 
 
-    void SpawnLoot()
-    {
-        Debug.Log("spawnLoot");
-        if (Random.Range(1, Consts.Values.Meds.medKitDropChance + 1) == 1)
-        {
-            //Instantiate(medKit, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-           
-        }
-        else
-        {
-
-        }
-        if (Random.Range(1, Consts.Values.FlashLight.batterySpawnChanse + 1) == 1)
-        {
-            Instantiate(battery, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-
-        }
-
-        if (GameConditionsManager.currentWave >= 2)
-        {
-            if (GameConditionsManager.numberOfDeadZombies == 9)
-            {
-
-                GameConditionsManager.numberOfDeadZombies = 0;
-                Instantiate(boost, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-            }
-            else
-            {
-                GameConditionsManager.numberOfDeadZombies++;
-                Debug.Log("++");
-            }
-        }
-
-
-
-
-    }
+   
 
 
     void CheckDistance()

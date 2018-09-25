@@ -100,7 +100,7 @@ namespace Tod {
         t.parent = parent.transform;
         t.localPosition = Vector3.zero;
         t.localRotation = Quaternion.identity;
-        t.localScale = Vector3.one;
+      //  t.localScale = Vector3.one;
         go.layer = parent.layer;
     }
     return go;
@@ -115,7 +115,7 @@ namespace Tod {
              t.parent = parent.transform;
              t.localPosition = Vector3.zero;
              t.localRotation = Quaternion.identity;
-             t.localScale = Vector3.one;
+          //   t.localScale = Vector3.one;
              go.layer = parent.layer;
          }
          return go;

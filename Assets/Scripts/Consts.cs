@@ -44,6 +44,9 @@ public static class Consts
             public static int slowZombieSpawnRate = 10;
             public static int scoreCountForSlowZombieKill = 100;
             public static int scoreCountForFastZombieKill = 10;
+            public static float slowZombieMaxhealth = 100f;
+            public static float fastZombieMaxhealth = 30f;
+
         }
 
         public static class FlashLight
@@ -88,7 +91,7 @@ public static class Consts
         public static class Player
         {
             public static Vector3 startPos = new Vector3(15,1.5f,43f);
-            public static float playermaxHealth = 100f;
+            public static float playermaxHealth = 10000f;
             public static float speed = 0.1f;
 
 

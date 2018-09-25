@@ -17,6 +17,9 @@ public class FastZombie : Zombie {
 
     #region Unity lifecycle
 
+
+   
+
     void Start()
     {
 
@@ -25,7 +28,7 @@ public class FastZombie : Zombie {
         thisAgent = GetComponent<NavMeshAgent>();
         thisAnimator = GetComponent<Animator>();
         Player = GameObject.Find("Player");
-        EventController.spawnLoot += SpawnLoot;
+
     }
 
 
@@ -43,52 +46,7 @@ public class FastZombie : Zombie {
 
     #region private methods
 
-    void SpawnLoot()
-    {
-       
-        
-            if (Random.Range(1, Consts.Values.Meds.medKitDropChance + 1) == 1)
-            {
-            //  Instantiate(medKit, new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-
-                GameObject go =  UnityPoolManager.Instance.Pop<UnityPoolObject>(2, false).gameObject;
-                go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-                go.SetActive(true);
-          
-        }
-            else
-            {
-
-            }
-            if (Random.Range(1, Consts.Values.FlashLight.batterySpawnChanse + 1) == 1)
-            {
-                Transform go = UnityPoolManager.Instance.Pop<UnityPoolObject>(0, false).GetComponent<Transform>();
-                go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-               // go.gameObject.SetActive(true);
-
-            }
-
-            if (GameConditionsManager.currentWave >= 2)
-            {
-                if (GameConditionsManager.numberOfDeadZombies == 9)
-                {
-
-                    GameConditionsManager.numberOfDeadZombies = 0;
-                    Transform go = UnityPoolManager.Instance.Pop<UnityPoolObject>(1, false).GetComponent<Transform>();
-                    go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-                    go.gameObject.SetActive(true);
-                }
-                else
-                {
-                    GameConditionsManager.numberOfDeadZombies++;
-                    Debug.Log("++");
-                }
-            }
-
-
-
-        
-    }
+   
 
 
     void CheckDistance()

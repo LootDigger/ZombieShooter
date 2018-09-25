@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tod;
 
 public class ZombieWavesController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class ZombieWavesController : MonoBehaviour
     private GameObject[] zombieArray;
     private GameObject[] meds;
     private GameObject[] boosts;
+   // private GameObject tmpGO;
     #endregion
 
 
@@ -129,11 +131,23 @@ public class ZombieWavesController : MonoBehaviour
 
             if (tmp == Consts.Values.Zombie.slowZombieSpawnRate && DifficultyController.isMaxim)
             {
-                Instantiate(slowZombie, spawnPos, Quaternion.identity);
+
+                // Instantiate(slowZombie, spawnPos, Quaternion.identity);
+                GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(4, true).gameObject;
+                tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
+                //   tmpGO.SetActive(true);
+                Debug.Log("Spawn slow zombie");
+
             }
             else
             {
-                Instantiate(fastZombie, spawnPos, Quaternion.identity);
+
+                // Instantiate(fastZombie, spawnPos, Quaternion.identity);
+                GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(3, true).gameObject;
+                tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
+                //   tmpGO.SetActive(true);
+                Debug.Log("Spawn fast zombie");
+
 
             }
         }
@@ -152,11 +166,22 @@ public class ZombieWavesController : MonoBehaviour
 
             if (tmp == Consts.Values.Zombie.slowZombieSpawnRate)
             {
-                Instantiate(slowZombie, spawnPos, Quaternion.identity);
+
+                GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(4, true).gameObject;
+                tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
+                //  tmpGO.SetActive(true);
+                Debug.Log("Spawn slow zombie");
+
+
             }
             else
             {
-                Instantiate(fastZombie, spawnPos, Quaternion.identity);
+
+                GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(3, true).gameObject;
+                tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
+                //  tmpGO.SetActive(true);
+                Debug.Log("Spawn fast zombie");
+
 
             }
         }
@@ -173,11 +198,22 @@ public class ZombieWavesController : MonoBehaviour
             int tmp = Random.Range(1, Consts.Values.Zombie.slowZombieSpawnRate + 1);
             if (tmp == Consts.Values.Zombie.slowZombieSpawnRate)
             {
-                Instantiate(slowZombie, spawnPos, Quaternion.identity);
+                GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(4, true).gameObject;
+                tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
+                //  tmpGO.SetActive(true);
+                Debug.Log("Spawn slow zombie");
+
+
             }
             else
             {
-                Instantiate(fastZombie, spawnPos, Quaternion.identity);
+
+                GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(3, true).gameObject;
+                tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
+                //  tmpGO.SetActive(true);
+                Debug.Log("Spawn fast zombie");
+
+
             }
         }
 
@@ -194,11 +230,19 @@ public class ZombieWavesController : MonoBehaviour
 
             if (tmp == Consts.Values.Zombie.slowZombieSpawnRate)
             {
-                Instantiate(slowZombie, spawnPos, Quaternion.identity);
+                GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(4, true).gameObject;
+                tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
+                //  tmpGO.SetActive(true);
+                Debug.Log("Spawn slow zombie");
+
+
             }
             else
             {
-                Instantiate(fastZombie, spawnPos, Quaternion.identity);
+                GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(3, true).gameObject;
+                tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
+               // tmpGO.SetActive(true);
+                Debug.Log("Spawn fast zombie");
 
             }
         }

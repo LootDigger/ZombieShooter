@@ -85,13 +85,14 @@ GameObject:
   - component: {fileID: 114615588836223648}
   - component: {fileID: 95456151903176322}
   - component: {fileID: 195859857463249318}
+  - component: {fileID: 114824164459571958}
   m_Layer: 0
   m_Name: SlowZombieV2
   m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1138929076227452
 GameObject:
   m_ObjectHideFlags: 1
@@ -985,6 +986,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 100
+--- !u!114 &114824164459571958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109769225160964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0439f12196f06d41958143f7fa3ca33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolType: 4
 --- !u!135 &135153662614637254
 SphereCollider:
   m_ObjectHideFlags: 1

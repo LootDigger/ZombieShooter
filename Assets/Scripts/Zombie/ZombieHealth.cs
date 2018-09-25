@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tod;
 
 public class ZombieHealth : MonoBehaviour {
 
@@ -31,6 +32,11 @@ public class ZombieHealth : MonoBehaviour {
     {
         isAlive = true;
         thisAnimator = GetComponent<Animator>();
+    }
+
+    void OnDisable()
+    {
+        Reborn();
     }
 
     void OnTriggerEnter(Collider other)
@@ -65,7 +71,7 @@ public class ZombieHealth : MonoBehaviour {
         {
             GameConditionsManager.countOfKilledZombies++;
             this.isAlive = false;
-            gameObject.SetActive(false);
+            UnityPoolManager.Instance.Push(this.gameObject.GetComponent<UnityPoolObject>());
             EventController.InvokeEvent(Consts.Events.events.reduceZombie);
             EventController.InvokeEvent(Consts.Events.events.addScoreForTheFZ);
 
@@ -74,6 +80,27 @@ public class ZombieHealth : MonoBehaviour {
         }
     }
 
+
+
+
+    #endregion
+
+
+
+    #region public methods
+
+    public void Reborn()
+    {
+        isAlive = true;
+
+        if(gameObject.GetComponent<SlowZombie>())
+          HP = Consts.Values.Zombie.slowZombieMaxhealth;
+        else
+            if(gameObject.GetComponent<FastZombie>())
+               HP = Consts.Values.Zombie.fastZombieMaxhealth;
+
+
+    }
 
     #endregion
 }

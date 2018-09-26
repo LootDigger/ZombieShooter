@@ -141,6 +141,7 @@ public class ZombieWavesController : MonoBehaviour
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                 //   tmpGO.SetActive(true);
                 Debug.Log("Spawn slow zombie");
+                GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
 
             }
             else
@@ -151,6 +152,8 @@ public class ZombieWavesController : MonoBehaviour
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                 //   tmpGO.SetActive(true);
                 Debug.Log("Spawn fast zombie");
+                GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
+
 
 
             }
@@ -175,6 +178,8 @@ public class ZombieWavesController : MonoBehaviour
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                 //  tmpGO.SetActive(true);
                 Debug.Log("Spawn slow zombie");
+                GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
+
 
 
             }
@@ -184,6 +189,8 @@ public class ZombieWavesController : MonoBehaviour
                 GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(3, true).gameObject;
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                 Debug.Log("Spawn fast zombie");
+                GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
+
 
 
             }
@@ -204,6 +211,8 @@ public class ZombieWavesController : MonoBehaviour
                 GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(4, true).gameObject;
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                 //  tmpGO.SetActive(true);
+                GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
+
                 Debug.Log("Spawn slow zombie");
 
 
@@ -214,6 +223,8 @@ public class ZombieWavesController : MonoBehaviour
                 GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(3, true).gameObject;
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                 //  tmpGO.SetActive(true);
+                GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
+
                 Debug.Log("Spawn fast zombie");
 
 
@@ -235,6 +246,7 @@ public class ZombieWavesController : MonoBehaviour
             {
                 GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(4, true).gameObject;
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
+                GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
                 //  tmpGO.SetActive(true);
                 Debug.Log("Spawn slow zombie");
 
@@ -244,7 +256,9 @@ public class ZombieWavesController : MonoBehaviour
             {
                 GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(3, true).gameObject;
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
-               // tmpGO.SetActive(true);
+                // tmpGO.SetActive(true);
+                GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
+
                 Debug.Log("Spawn fast zombie");
 
             }
@@ -258,28 +272,19 @@ public class ZombieWavesController : MonoBehaviour
 
     void Replay()
     {
-        boosts = GameObject.FindGameObjectsWithTag("Booster");
+        
 
-        foreach(GameObject boosters in boosts)
+        foreach(UnityPoolObject obj in GameConditionsManager.loot)
         {
-            Destroy(boosters);
-        }
-
-        meds = GameObject.FindGameObjectsWithTag("MedKit");
-
-        foreach (GameObject medKits in meds)
-        {
-            Destroy(medKits);
+            UnityPoolManager.Instance.Push(obj);
         }
 
 
-        zombieArray =  GameObject.FindGameObjectsWithTag("Zombie");
-
-
-        foreach(GameObject zmb in zombieArray)
+        foreach (UnityPoolObject obj in GameConditionsManager.zombies)
         {
-            Destroy(zmb);
+            UnityPoolManager.Instance.Push(obj);
         }
+
 
 
     }

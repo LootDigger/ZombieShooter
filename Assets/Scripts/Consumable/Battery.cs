@@ -5,12 +5,24 @@ using Tod;
 public class Battery : ConsumableObject
 {
 
+    #region Serializable fields
+
+    [SerializeField]
+    private FlashLight flashLight;
+
+    #endregion
+
     public override void Consume()
     {
-
-        EventController.InvokeEvent(Consts.Events.events.fillFlashLight);
-        gameObject.GetComponent<UnityPoolObject>().Push();
-        
+        if (flashLight.lightPower == Consts.Values.FlashLight.flashLightlifeCycle)
+            return;
+        else
+            if (flashLight.lightPower < Consts.Values.FlashLight.flashLightlifeCycle)
+        {
+            EventController.InvokeEvent(Consts.Events.events.fillFlashLight);
+            gameObject.GetComponent<UnityPoolObject>().Push();
+                       
+        }
     }
 
 

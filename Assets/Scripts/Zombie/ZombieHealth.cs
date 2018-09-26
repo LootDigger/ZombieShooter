@@ -107,7 +107,8 @@ public class ZombieHealth : MonoBehaviour {
                     GameConditionsManager.numberOfDeadZombies = 0;
                     GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(1, true).gameObject;
                     go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-         }
+                    GameConditionsManager.loot.Add(go.GetComponent<UnityPoolObject>());
+            }
             else
             {
                 if(gameObject.GetComponent<SlowZombie>())
@@ -119,6 +120,7 @@ public class ZombieHealth : MonoBehaviour {
                     Debug.Log("Spawn Meds");
                     GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(2, true).gameObject;
                     go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+                    GameConditionsManager.loot.Add(go.GetComponent<UnityPoolObject>());
 
                 }
                 else
@@ -127,6 +129,7 @@ public class ZombieHealth : MonoBehaviour {
                     Debug.Log("Spawn battery");
                     GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(0, true).gameObject;
                     go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+                    GameConditionsManager.loot.Add(go.GetComponent<UnityPoolObject>());
 
                 }
             }

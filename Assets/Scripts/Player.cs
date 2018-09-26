@@ -17,12 +17,27 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private FlashLight flashLight;
-          
+
     #endregion
-    
+
+
+    #region Properties
+
+    public FlashLight thisFlashlight
+    {
+        get
+        {
+            return flashLight;
+        }
+
+
+    }
+
+    #endregion
+
 
     #region Unity lifeCycle
-    
+
     void OnTriggerEnter(Collider other)
     {
 

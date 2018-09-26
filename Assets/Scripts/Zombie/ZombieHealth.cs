@@ -145,11 +145,20 @@ public class ZombieHealth : MonoBehaviour {
     {
         isAlive = true;
 
-        if(gameObject.GetComponent<SlowZombie>())
-          HP = Consts.Values.Zombie.slowZombieMaxhealth;
+        if (gameObject.GetComponent<SlowZombie>())
+        {
+            HP = Consts.Values.Zombie.slowZombieMaxhealth;
+
+            if (GameConditionsManager.currentWave >= 9)
+                HP += GameConditionsManager.currentWave;    
+
+
+
+
+        }
         else
-            if(gameObject.GetComponent<FastZombie>())
-               HP = Consts.Values.Zombie.fastZombieMaxhealth;
+            if (gameObject.GetComponent<FastZombie>())
+            HP = Consts.Values.Zombie.fastZombieMaxhealth;
 
 
     }

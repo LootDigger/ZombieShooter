@@ -35,10 +35,10 @@ public static class Consts
         {
             public static float fZDamage = 10f;
             public static float sZDamage = 25f;
-            public static float attackDistance = 4f;
+            public static float attackDistance = 4.5f;
             public static float fastZombieAttackCooldown = 1f;
-            public static float slowZombieAttackCooldown = 2f;
-            public static float fastZombieSpeed = 3.5f;
+            public static float slowZombieAttackCooldown = 1f;
+            public static float fastZombieSpeed = 4.5f;
             public static float slowZombieSpeed = 2.5f;
             public static float zombieSpawnDistance = 50f;
             public static int slowZombieSpawnRate = 10;
@@ -85,14 +85,14 @@ public static class Consts
         public static class Weapons
         {
             public static float PistolShootingSpeed = 120f;
-
+            public static float minimumPistolShootingSpeed = 120f;
         }
 
         public static class Player
         {
             public static Vector3 startPos = new Vector3(15,1.5f,43f);
-            public static float playermaxHealth = 10000f;
-            public static float speed = 0.1f;
+            public static float playermaxHealth = 100f;
+            public static float speed = 0.075f;
 
 
         }

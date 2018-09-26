@@ -183,7 +183,6 @@ public class ZombieWavesController : MonoBehaviour
 
                 GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(3, true).gameObject;
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
-                //  tmpGO.SetActive(true);
                 Debug.Log("Spawn fast zombie");
 
 

@@ -40,6 +40,7 @@ public class DoublePistol : MonoBehaviour {
         CalculateShootingDelay();
         EventController.Subscribe(Consts.Events.events.upgradeWeapon, UpgradeWeapon);
         EventController.Subscribe(Consts.Events.events.replay, Replay);
+       
 
         isRightPistolShooting = false;
         StartCoroutine(Shooting());
@@ -69,8 +70,8 @@ public class DoublePistol : MonoBehaviour {
     void Replay()
     {
 
-        Consts.Values.Weapons.PistolShootingSpeed = 120f;
-
+        Consts.Values.Weapons.PistolShootingSpeed = Consts.Values.Weapons.minimumPistolShootingSpeed;
+        CalculateShootingDelay();
 
     }
 

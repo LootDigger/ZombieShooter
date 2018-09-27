@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tod;
 
 public class DoublePistol : MonoBehaviour {
 
@@ -84,7 +85,6 @@ public class DoublePistol : MonoBehaviour {
     {
         Consts.Values.Weapons.PistolShootingSpeed *= 1.5f;
         CalculateShootingDelay();
-        Debug.Log("Shooting firerate now is " + Consts.Values.Weapons.PistolShootingSpeed);
     }
 
     IEnumerator Shooting()
@@ -95,7 +95,18 @@ public class DoublePistol : MonoBehaviour {
         StartCoroutine(Shooting());
     }
 
-    
+
+    IEnumerator BulletLife(GameObject go)
+    {
+
+       
+        yield return new WaitForSeconds(5f);
+      //  go.SetActive(false);
+        UnityPoolManager.Instance.Push(go.GetComponent<UnityPoolObject>());
+    }
+
+
+
 
     void Shot()
     {
@@ -114,9 +125,15 @@ public class DoublePistol : MonoBehaviour {
             Destroy(Instantiate(fireBall,bulletSpawnPos[i].transform.position,Quaternion.identity), 0.1f);
 
             bulletFlyDirection = new Vector3(x, 0, z);
-            GameObject go = Instantiate(bullet, bulletSpawnPos[i].transform.position, Quaternion.identity);
-            Destroy(go, 5f);
+            GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(5, false).gameObject;
+                       
+                go.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                go.transform.SetPositionAndRotation(bulletSpawnPos[i].transform.position, Quaternion.Euler(Vector3.zero));
+                StartCoroutine(BulletLife(go));
+            go.SetActive(true);
             go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
+         
+
             isRightPistolShooting = !isRightPistolShooting;
         }
     }

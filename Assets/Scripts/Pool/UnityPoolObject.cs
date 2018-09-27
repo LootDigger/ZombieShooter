@@ -34,6 +34,7 @@ namespace Tod {
 
         public void FailedPush() {
             Destroy(gameObject);
+            Debug.Log("FAILED FUSH");
         }
 
         #endregion

@@ -44,7 +44,8 @@ public class ZombieHealth : MonoBehaviour {
         if (other.GetComponent<Bullet>())
         {
             HP -= 10f;
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
+            UnityPoolManager.Instance.Push(other.gameObject.GetComponent<UnityPoolObject>());
            
         }
         thisAnimator.SetTrigger("isShoted");

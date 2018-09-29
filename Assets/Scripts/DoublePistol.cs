@@ -101,8 +101,9 @@ public class DoublePistol : MonoBehaviour {
 
        
         yield return new WaitForSeconds(5f);
-      //  go.SetActive(false);
+      
         UnityPoolManager.Instance.Push(go.GetComponent<UnityPoolObject>());
+        
     }
 
 
@@ -125,14 +126,16 @@ public class DoublePistol : MonoBehaviour {
             Destroy(Instantiate(fireBall,bulletSpawnPos[i].transform.position,Quaternion.identity), 0.1f);
 
             bulletFlyDirection = new Vector3(x, 0, z);
-            GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(5, false).gameObject;
-                       
-                go.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                go.transform.SetPositionAndRotation(bulletSpawnPos[i].transform.position, Quaternion.Euler(Vector3.zero));
-                StartCoroutine(BulletLife(go));
-            go.SetActive(true);
+            GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(5, true).gameObject;
+
+       
+            go.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            go.transform.SetPositionAndRotation(bulletSpawnPos[i].transform.position, Quaternion.Euler(Vector3.zero));
+          
+            StartCoroutine(BulletLife(go));
+
             go.GetComponent<Rigidbody>().AddForce(bulletFlyDirection * 100f, ForceMode.Force);
-         
+
 
             isRightPistolShooting = !isRightPistolShooting;
         }

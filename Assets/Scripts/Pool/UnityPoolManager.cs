@@ -41,6 +41,7 @@ namespace Tod {
                 var pool = pools[poolObject.PoolType];
                 pool.Push(poolObject);
                 poolObject.transform.parent = pool.Root.transform;
+                 
             }
         }
 

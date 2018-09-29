@@ -35,7 +35,7 @@ public static class Consts
         {
             public static float fZDamage = 10f;
             public static float sZDamage = 25f;
-            public static float attackDistance = 4.5f;
+            public static float attackDistance = 3f;
             public static float fastZombieAttackCooldown = 1f;
             public static float slowZombieAttackCooldown = 1f;
             public static float fastZombieSpeed = 4.5f;
@@ -53,7 +53,7 @@ public static class Consts
         {
             public static float flashLightlifeCycle = 15f;
             public static float batteryPower = 15f;
-            public static int batterySpawnChanse = 30;
+            public static int batterySpawnChanse = 25;
 
 
         }
@@ -69,7 +69,7 @@ public static class Consts
         {
 
             public static float medKitCureEffect = 20f;
-            public static int medKitDropChance = 20;
+            public static int medKitDropChance = 15;
         }
 
         
@@ -92,7 +92,7 @@ public static class Consts
         {
             public static Vector3 startPos = new Vector3(15,1.5f,43f);
             public static float playermaxHealth = 100f;
-            public static float speed = 0.075f;
+            public static float speed = 0.1f;
 
 
         }

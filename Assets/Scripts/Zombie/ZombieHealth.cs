@@ -23,6 +23,9 @@ public class ZombieHealth : MonoBehaviour {
     [SerializeField]
     protected float HP;
 
+    [SerializeField]
+    private GameObject blood;
+
     #endregion
 
 
@@ -70,6 +73,8 @@ public class ZombieHealth : MonoBehaviour {
     {
         if (HP <= 0)
         {
+            Destroy(Instantiate(blood, transform.position, Quaternion.identity), 1f);
+
             GameConditionsManager.countOfKilledZombies++;
             this.isAlive = false;
             UnityPoolManager.Instance.Push(this.gameObject.GetComponent<UnityPoolObject>());

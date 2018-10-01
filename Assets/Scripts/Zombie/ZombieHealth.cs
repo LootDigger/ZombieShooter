@@ -115,11 +115,20 @@ public class ZombieHealth : MonoBehaviour {
                     
             Debug.Log("Spawn m14");
             GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(9, true).gameObject;
-            go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+            go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.Euler(0, 0, 90));
             GameConditionsManager.loot.Add(go.GetComponent<UnityPoolObject>());
 
         }
-        
+
+
+        if (GameConditionsManager.currentWave == 10 && GameConditionsManager.countOfKilledZombiesInCurrentWave == 1)
+        {
+            // GameConditionsManager.countOfKilledTanks = 0;
+            Debug.Log("Spawn m16");
+            GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(7, true).gameObject;
+            go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.Euler(0,0,90));
+            GameConditionsManager.loot.Add(go.GetComponent<UnityPoolObject>());
+        }
 
 
         if (GameConditionsManager.currentWave >= 2)
@@ -146,14 +155,7 @@ public class ZombieHealth : MonoBehaviour {
             //}
 
 
-            if (GameConditionsManager.currentWave == 10 && GameConditionsManager.countOfKilledZombiesInCurrentWave == 1)
-            {
-               // GameConditionsManager.countOfKilledTanks = 0;
-                Debug.Log("Spawn m16");
-                GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(7, true).gameObject;
-                go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
-                GameConditionsManager.loot.Add(go.GetComponent<UnityPoolObject>());
-            }
+           
 
             if (GameConditionsManager.numberOfDeadZombies == 4  && gameObject.GetComponent<SlowZombie>())
          {

@@ -38,7 +38,7 @@ public static class Consts
         {
             public static float fZDamage = 10f;
             public static float sZDamage = 25f;
-            public static float attackDistance = 4f;
+            public static float attackDistance = 3f;
             public static float fastZombieAttackCooldown = 1f;
             public static float slowZombieAttackCooldown = 1f;
             public static float fastZombieSpeed = 4.5f;

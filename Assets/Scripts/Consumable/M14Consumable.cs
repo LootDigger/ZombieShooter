@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tod;
 
 public class M14Consumable : WeaponConsumable {
 
@@ -10,8 +11,8 @@ public class M14Consumable : WeaponConsumable {
     public override void Consume()
     {
         EventController.InvokeEvent(Consts.Events.events.pickUpM14);
-        Destroy(this.gameObject);
-
+        UnityPoolManager.Instance.Push(this.gameObject.GetComponent<UnityPoolObject>());
+            
     }
 
 

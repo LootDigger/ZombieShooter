@@ -94,6 +94,7 @@ public class DoublePistol : MonoBehaviour {
 
         Consts.Values.Weapons.PistolShootingSpeed = Consts.Values.Weapons.minimumPistolShootingSpeed;
         CalculateShootingDelay();
+        gameObject.SetActive(true);
 
     }
 

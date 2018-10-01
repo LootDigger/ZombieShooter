@@ -103,7 +103,7 @@ public class M14 : MonoBehaviour {
 
        // Consts.Values.Weapons.M16ShootingSpeed = Consts.Values.Weapons.minimumM16ShootingSpeed;
         CalculateShootingDelay();
-
+        gameObject.SetActive(false);
     }
 
     void CalculateShootingDelay()

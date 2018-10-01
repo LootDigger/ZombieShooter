@@ -84,8 +84,8 @@ public class FastZombie : Zombie {
 
     IEnumerator CoolDown()
     {
-        yield return new WaitForSeconds(Consts.Values.Zombie.fastZombieAttackCooldown);
         TryToAttack();
+        yield return new WaitForSeconds(Consts.Values.Zombie.fastZombieAttackCooldown);       
         isReadyToAttack = true;
     }
 

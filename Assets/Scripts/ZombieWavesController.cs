@@ -71,7 +71,7 @@ public class ZombieWavesController : MonoBehaviour
 
     public void SpawnWave()
     {
-
+        GameConditionsManager.countOfKilledZombiesInCurrentWave = 0;
         GameConditionsManager.currentWave++;
         EventController.InvokeEvent(Consts.Events.events.updateWaveUI);
         if (!isGameStarted)
@@ -116,10 +116,7 @@ public class ZombieWavesController : MonoBehaviour
         }
 
         zombiesAliveCount = tmpCount * 4;
-        Debug.Log("tmp count " + tmpCount);
-
-        Debug.Log("zombie count " + zombiesAliveCount);
-
+     
       
 
 
@@ -140,7 +137,6 @@ public class ZombieWavesController : MonoBehaviour
                 GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(4, true).gameObject;
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                 //   tmpGO.SetActive(true);
-                Debug.Log("Spawn slow zombie");
                 GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
 
             }
@@ -151,7 +147,6 @@ public class ZombieWavesController : MonoBehaviour
                 GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(3, true).gameObject;
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                 //   tmpGO.SetActive(true);
-                Debug.Log("Spawn fast zombie");
                 GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
 
 
@@ -177,7 +172,6 @@ public class ZombieWavesController : MonoBehaviour
                 GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(4, true).gameObject;
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                 //  tmpGO.SetActive(true);
-                Debug.Log("Spawn slow zombie");
                 GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
 
 
@@ -188,7 +182,6 @@ public class ZombieWavesController : MonoBehaviour
 
                 GameObject tmpGO = UnityPoolManager.Instance.Pop<UnityPoolObject>(3, true).gameObject;
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
-                Debug.Log("Spawn fast zombie");
                 GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
 
 
@@ -213,7 +206,6 @@ public class ZombieWavesController : MonoBehaviour
                 //  tmpGO.SetActive(true);
                 GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
 
-                Debug.Log("Spawn slow zombie");
 
 
             }
@@ -225,7 +217,6 @@ public class ZombieWavesController : MonoBehaviour
                 //  tmpGO.SetActive(true);
                 GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
 
-                Debug.Log("Spawn fast zombie");
 
 
             }
@@ -248,7 +239,6 @@ public class ZombieWavesController : MonoBehaviour
                 tmpGO.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                 GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
                 //  tmpGO.SetActive(true);
-                Debug.Log("Spawn slow zombie");
 
 
             }
@@ -259,7 +249,6 @@ public class ZombieWavesController : MonoBehaviour
                 // tmpGO.SetActive(true);
                 GameConditionsManager.zombies.Add(tmpGO.GetComponent<UnityPoolObject>());
 
-                Debug.Log("Spawn fast zombie");
 
             }
         }

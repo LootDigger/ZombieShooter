@@ -24,7 +24,10 @@ public static class Consts
             updateWaveUI,
             flashLightTurned,
             fillFlashLight,
-            spawnLoot
+            spawnLoot,
+            pickUpM16,
+            pickUpWeapone,
+            pickUpM14
         };
 
     }
@@ -35,7 +38,7 @@ public static class Consts
         {
             public static float fZDamage = 10f;
             public static float sZDamage = 25f;
-            public static float attackDistance = 3f;
+            public static float attackDistance = 4f;
             public static float fastZombieAttackCooldown = 1f;
             public static float slowZombieAttackCooldown = 1f;
             public static float fastZombieSpeed = 4.5f;
@@ -86,6 +89,11 @@ public static class Consts
         {
             public static float PistolShootingSpeed = 120f;
             public static float minimumPistolShootingSpeed = 120f;
+            public static float M16ShootingSpeed = 300f;
+            public static float minimumM16ShootingSpeed = 300f;
+            public static float M14ShootingSpeed = 100f;
+            public static float minimumM14ShootingSpeed = 100;
+
         }
 
         public static class Player

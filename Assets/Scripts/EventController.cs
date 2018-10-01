@@ -22,8 +22,10 @@ public class EventController
     static event Action flashLightTurned;
     public static event Action fillFlashlight;
     public static event Action spawnLoot;
+    public static event Action pickUpM16;
+    public static event Action pickUpM14;
 
-
+    //public static event Action pickUpWeapone;
 
 
     public static void Subscribe(Consts.Events.events gameEvent, Action method)
@@ -122,6 +124,29 @@ public class EventController
             if (spawnLoot != null)
                 spawnLoot();
         }
+
+
+        //if (eventParametr == Consts.Events.events.pickUpWeapone)
+        //{
+        //    if (pickUpWeapone != null)
+        //        pickUpWeapone();
+        //}
+
+
+        if (eventParametr == Consts.Events.events.pickUpM16)
+        {
+            if (pickUpM16 != null)
+                pickUpM16();
+        }
+
+
+        if (eventParametr == Consts.Events.events.pickUpM14)
+        {
+            if (pickUpM14 != null)
+                pickUpM14();
+        }
+
+
 
         if (eventParametr == Consts.Events.events.fZhitPlayer)
         {

@@ -45,6 +45,12 @@ public class Player : MonoBehaviour
         {
             other.GetComponent<ConsumableObject>().Consume();
         }
+
+
+        if(other.GetComponent<WeaponConsumable>())
+        {
+            EventController.InvokeEvent(Consts.Events.events.pickUpWeapone);
+        }
         
     }
 

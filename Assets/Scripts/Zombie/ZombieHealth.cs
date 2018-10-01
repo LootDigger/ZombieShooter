@@ -47,11 +47,17 @@ public class ZombieHealth : MonoBehaviour {
         if (other.GetComponent<Bullet>())
         {
             HP -= 10f;
-            //Destroy(other.gameObject);
             UnityPoolManager.Instance.Push(other.gameObject.GetComponent<UnityPoolObject>());
-           
+            thisAnimator.SetTrigger("isShoted");
         }
-        thisAnimator.SetTrigger("isShoted");
+
+        if (other.GetComponent<SniperBullet>())
+        {
+            HP -= 50f;
+            UnityPoolManager.Instance.Push(other.gameObject.GetComponent<UnityPoolObject>());
+            thisAnimator.SetTrigger("isShoted");
+        }
+
         thisAnimator.SetTrigger("exitShotAnim");
 
     }
@@ -73,6 +79,7 @@ public class ZombieHealth : MonoBehaviour {
     {
         if (HP <= 0)
         {
+            GameConditionsManager.countOfKilledZombiesInCurrentWave++;
             Destroy(Instantiate(blood, transform.position, Quaternion.identity), 1f);
 
             GameConditionsManager.countOfKilledZombies++;
@@ -98,15 +105,57 @@ public class ZombieHealth : MonoBehaviour {
 
     void SpawnLoot()
     {
+        Debug.Log("++tanks");
         Debug.Log("Spawn something");
 
+     
+
+        if (GameConditionsManager.currentWave == 5 && GameConditionsManager.countOfKilledZombiesInCurrentWave == 1)
+        {
+                    
+            Debug.Log("Spawn m14");
+            GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(9, true).gameObject;
+            go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+            GameConditionsManager.loot.Add(go.GetComponent<UnityPoolObject>());
+
+        }
         
-       
+
+
         if (GameConditionsManager.currentWave >= 2)
         {
 
-            
-         if (GameConditionsManager.numberOfDeadZombies == 4  && gameObject.GetComponent<SlowZombie>())
+
+
+
+            if (gameObject.GetComponent<SlowZombie>())
+            {
+                Debug.Log("++tanks");
+                GameConditionsManager.numberOfDeadZombies++;
+                GameConditionsManager.countOfKilledTanks++;
+            }
+            Debug.Log("Количество убитых танков == " + GameConditionsManager.countOfKilledTanks);
+
+            //if (GameConditionsManager.countOfKilledTanks == 5 && gameObject.GetComponent<SlowZombie>())
+            //{
+            //    GameConditionsManager.countOfKilledTanks = 0;
+            //    Debug.Log("Spawn m16");
+            //    GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(7, true).gameObject;
+            //    go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+            //    GameConditionsManager.loot.Add(go.GetComponent<UnityPoolObject>());
+            //}
+
+
+            if (GameConditionsManager.currentWave == 10 && GameConditionsManager.countOfKilledZombiesInCurrentWave == 1)
+            {
+               // GameConditionsManager.countOfKilledTanks = 0;
+                Debug.Log("Spawn m16");
+                GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(7, true).gameObject;
+                go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
+                GameConditionsManager.loot.Add(go.GetComponent<UnityPoolObject>());
+            }
+
+            if (GameConditionsManager.numberOfDeadZombies == 4  && gameObject.GetComponent<SlowZombie>())
          {
                     Debug.Log("Spawn booster");
 
@@ -114,12 +163,12 @@ public class ZombieHealth : MonoBehaviour {
                     GameObject go = UnityPoolManager.Instance.Pop<UnityPoolObject>(1, true).gameObject;
                     go.transform.SetPositionAndRotation(new Vector3(transform.position.x, 0.2f, transform.position.z), Quaternion.identity);
                     GameConditionsManager.loot.Add(go.GetComponent<UnityPoolObject>());
-            }
+         }
+         
+           
             else
             {
-                if(gameObject.GetComponent<SlowZombie>())
-                    GameConditionsManager.numberOfDeadZombies++;
-                    
+
 
                 if (Random.Range(1, Consts.Values.Meds.medKitDropChance + 1) == 1)
                 {

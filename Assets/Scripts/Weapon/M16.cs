@@ -60,12 +60,14 @@ public class M16 : MonoBehaviour {
        // StartCoroutine(Shooting());
     }
 
-void OnEnable()
-{
+    void OnEnable()
+    {
 
-  StartCoroutine(Shooting());
+      StartCoroutine(Shooting());
 
-}
+    }
+
+        
     void Update()
     {
 

@@ -46,9 +46,16 @@ public class DoublePistol : MonoBehaviour {
 
 
         isRightPistolShooting = false;
-        StartCoroutine(Shooting());
+       // StartCoroutine(Shooting());
     }
 
+
+void OnEnable()
+{
+
+  StartCoroutine(Shooting());
+
+}
 
     void Update()
     {
@@ -133,9 +140,12 @@ public class DoublePistol : MonoBehaviour {
 
     void Shot()
     {
+        Debug.Log("Shot!");
+
         if (isNeedToShoot)
         {
-           
+                   Debug.Log("Need to shoot!");
+
             int i;
             if (isRightPistolShooting)
                 i = 1;

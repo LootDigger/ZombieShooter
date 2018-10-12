@@ -99,7 +99,7 @@ public static class Consts
         public static class Player
         {
             public static Vector3 startPos = new Vector3(15,1.5f,43f);
-            public static float playermaxHealth = 10000f;
+            public static float playermaxHealth = 100f;
             public static float speed = 0.1f;
 
 

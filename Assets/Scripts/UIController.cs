@@ -188,14 +188,13 @@ public class UIController : MonoBehaviour {
         OnShowpauseScreen();    
         isPaused = !isPaused;
         EventController.InvokeEvent(Consts.Events.events.pause);
-        PauseScreen.SetActive(isPaused);
-        pauseGameBtn.SetActive(!isPaused);
+      //  PauseScreen.SetActive(isPaused);
+       // pauseGameBtn.SetActive(!isPaused);
     }
 
     void StartGame()
     {
-        startGameBtn.SetActive(false);
-        joysticks.SetActive(true);
+       
         healthBar.SetActive(true);
         scorePanel.SetActive(true);
         pauseGameBtn.SetActive(true);
@@ -233,7 +232,7 @@ public class UIController : MonoBehaviour {
 
     void ShowDeathScreen()
     {
-        joysticks.SetActive(false);
+        //joysticks.SetActive(false);
         wavedSurvivedResult.text = GameConditionsManager.currentWave.ToString();
         scoreResult.text = GameConditionsManager.mainScore.ToString();
         DeadScreen.SetActive(true);
